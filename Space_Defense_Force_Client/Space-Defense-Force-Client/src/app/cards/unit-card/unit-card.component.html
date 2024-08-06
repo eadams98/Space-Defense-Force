@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-12">
+        <br>
+        
+            <h5 *ngIf="successMessage!=null && successMessage!=''" class="success-message">
+                {{successMessage}}
+            </h5>
+            <h5 *ngIf="errorMessage!=null && errorMessage!=''" class="error-message">
+                {{errorMessage}}
+            </h5>
+          <br>
+    </div>
+    <div class="card-deck">
+        <div class="card bg-light">
+            <img class="card-img-top" [src]="'assets/resources/sdf_stock_ship.jpg'"
+                alt="Image Not Found" onError="this.src='assets/resources/sdf_stock_ship.jpg'">
+            <!-- <img class="card-img-top" [src]="'assets/resources/'+ selectedProduct.productId+'.jpg'"
+                alt="Image Not Found" onError="this.src='assets/resources/sdf_stock_ship.jpg'"> -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="offset-md-3">
+                        <button class="btn btn-warning " *ngIf="this.parent == 'shop'">Buy</button> <!-- Only visible if parent is shop-->
+                        <button class="btn btn-warning " *ngIf="this.parent == 'bag'">Sell</button> <!-- Only visible if parent is bag -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card ">
+        <div class="text-left text-black">
+            <h4>
+                <ins>Unit: {{selectedUnit.unitName}}</ins>  <!--title -->
+            </h4>
+        </div>
+        <table class="table table-borderless text-black">
+            <tr>
+                <th>
+                    <span class="text-muted">Health:</span>
+                </th>
+                <td>
+                    {{selectedUnit.unitHealth}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span class="text-muted">Shield:</span>
+                </th>
+                <td>
+                    {{selectedUnit.unitShield}}
+                </td>
+            </tr>
+            <tr>
+                <th >
+                    <span class="text-muted">Damage: </span>
+                </th>
+                <td>
+                    {{selectedUnit.unitDamage}}
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <span class="text-muted" >XP: </span>
+                    <!-- <span class="text-muted" *ngIf="selectedProduct['exchangeOffers'].length > 0">Exchange Discount</span> -->
+                </th>
+                <td>
+                    <strong>
+                        <span class="success-message" > {{selectedUnit.unitXP}}</span>
+                        <!-- <span class="success-message" *ngIf="selectedProduct['exchangeOffers'].length > 0">{{selectedProduct['exchangeOffers'][0].discount|number:'1.2-2'}}</span> -->
+                    </strong>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+
+</div>

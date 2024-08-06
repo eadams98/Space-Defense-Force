@@ -1,0 +1,31 @@
+<div class="container-fluid" style="border: 1px black solid; border-color: black;">
+    
+    <div *ngIf="showView == 'upgrades'">
+        <div *ngFor="let upgrade of this.commander.upgrades" >
+            <div class="col-md-8 offset-md-2" style="background-color: green;">{{upgrade.upgradeTypeDTO.modeleName}}</div>
+            <br>
+        </div>
+    </div>
+    
+    <div *ngIf="showView == 'units'">
+        <div *ngFor="let unit of this.commander.unitDTOList" >
+            <div class="col-md-8 offset-md-2" style="background-color: green;">{{unit.unitName}}</div>
+            <br>
+        </div>
+    </div>
+
+    <div>
+        <button class="col-md-2 offset-md-2" (click)="changeView('units')">Units</button>
+        <button class="col-md-2 offset-md-4" (click)="changeView('upgrades')">Upgrades</button>
+    </div>
+    {{showView}}
+</div>
+
+<!--
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4" style="background-color: green;"><app-commander-home></app-commander-home></div>
+      <div class="col-md-6" style="background-color: red;"> <app-commander-login></app-commander-login> </div>
+    </div>
+  </div>
+-->
