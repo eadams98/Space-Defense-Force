@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group.sdf.dto.CreateUserDTO;
 import com.group.sdf.dto.JwtResponse;
 import com.group.sdf.dto.LoginDTO;
 import com.group.sdf.entity.User;
+import com.group.sdf.service.RefreshTokenService;
 import com.group.sdf.service.UserService;
 import com.group.sdf.utility.JwtUtils;
 
@@ -35,6 +37,7 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@Autowired
 	private Environment environment;
 	
@@ -47,10 +50,23 @@ public class AuthController {
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
 	
+	@PostMapping(value="/create-user")
+	public ResponseEntity<String> createUser(@RequestBody CreateUserDTO createUserDTO) {
+		String response = userService.createUser(createUserDTO);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
 	@PostMapping(value="/signin")
 	public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginDTO loginRequest) throws Exception {
 		JwtResponse response = userService.authenticateUser(loginRequest);
 		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+	
+	@PostMapping("/refresh-token")
+	public ResponseEntity<String> refreshToken(@RequestBody LoginDTO request) {
+		String token = userService.refreshUserToken(request);
+		return new ResponseEntity<>(token, HttpStatus.OK);
+		
 	}
 	
 }

@@ -1,6 +1,6 @@
 package com.group.sdf.exceptions;
 
-public class JwtTokenValidationException extends RuntimeException {//RuntimeException {
+public class JwtTokenValidationException extends RuntimeException {
 	
 	private static final long serialVersionUID = 1L;
 

@@ -3,6 +3,7 @@ package com.group.sdf.dto;
 public class JwtResponse {
 	
 	private String jwtToken;
+	private String refreshToken;
 	private String name;
 	
 	public String getJwtToken() {
@@ -16,5 +17,11 @@ public class JwtResponse {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 }

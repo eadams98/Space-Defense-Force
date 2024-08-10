@@ -5,6 +5,7 @@ public class LoginDTO {
 	private String username;
 	private String password;
 	private String newPassword;
+	private String refreshToken;
 	
 	public String getUsername() {
 		return username;
@@ -23,6 +24,12 @@ public class LoginDTO {
 	}
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+	public String getRefreshToken() {
+		return refreshToken;
+	}
+	public void setRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
 	}
 	
 }

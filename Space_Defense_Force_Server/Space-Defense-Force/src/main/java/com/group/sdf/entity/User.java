@@ -3,6 +3,7 @@ package com.group.sdf.entity;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,7 +24,7 @@ public class User {
 	@Column(name = "USER_ID")
 	private Long userId;
 	
-	@Column(name = "USERNAME")
+	@Column(name = "EMAIL_ID")
 	private String username;
 	
 	@Column(name = "PASSWORD")
@@ -34,6 +36,10 @@ public class User {
 			joinColumns = @JoinColumn(name = "user_id"),
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles;
+	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "COMMANDER_ID", referencedColumnName = "COMMANDER_ID")
+	private UnitCommander unitCommander;
 
 	public Long getUserId() {
 		return userId;
@@ -67,10 +73,18 @@ public class User {
 		this.roles = roles;
 	}
 
+	public UnitCommander getUnitCommander() {
+		return unitCommander;
+	}
+
+	public void setUnitCommander(UnitCommander unitCommander) {
+		this.unitCommander = unitCommander;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", roles=" + roles
-				+ "]";
+				+ ", unitCommander=" + unitCommander + "]";
 	}
 	
 }

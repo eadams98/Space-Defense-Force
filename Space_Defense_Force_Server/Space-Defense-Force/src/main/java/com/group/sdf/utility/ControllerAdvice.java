@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +24,7 @@ public class ControllerAdvice {
 	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	Environment env;
+	Environment env; //env.getProperty(ex.getMessage()
 	
 	@ExceptionHandler
     public ResponseEntity<ErrorInfo> handleAccessDeniedException(ExpiredJwtException ex, HttpServletRequest request) {
@@ -61,6 +62,15 @@ public class ControllerAdvice {
 	
 	@ExceptionHandler(value = ServletException.class)
 	public ResponseEntity<ErrorInfo> handleServletException(Exception exception) {
+		ErrorInfo error = new ErrorInfo();
+		error.setErrorMessage(exception.getMessage());
+		error.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		error.setTimestamp(LocalDateTime.now());
+		return new ResponseEntity<ErrorInfo>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(value = DataIntegrityViolationException.class)
+	public ResponseEntity<ErrorInfo> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
 		ErrorInfo error = new ErrorInfo();
 		error.setErrorMessage(exception.getMessage());
 		error.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
