@@ -2,26 +2,27 @@ package com.group.sdf.dto;
 
 
 public class LoginDTO {
-	private String commanderEmail;
-	private String commanderPassword;
-	private String commanderNewPassword;
+	private String username;
+	private String password;
+	private String newPassword;
 	
-	public String getCommanderEmail() {
-		return commanderEmail;
+	public String getUsername() {
+		return username;
 	}
-	public String getCommanderPassword() {
-		return commanderPassword;
+	public String getPassword() {
+		return password;
 	}
-	public String getCommanderNewPassword() {
-		return commanderNewPassword;
+	public String getNewPassword() {
+		return newPassword;
 	}
-	public void setCommanderEmail(String commanderEmail) {
-		this.commanderEmail = commanderEmail;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public void setCommanderPassword(String commanderPassword) {
-		this.commanderPassword = commanderPassword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public void setCommanderNewPassword(String commanderNewPassword) {
-		this.commanderNewPassword = commanderNewPassword;
-	} 
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+	
 }
