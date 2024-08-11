@@ -56,6 +56,8 @@ public class UserServiceImpl implements UserService {
 	public JwtResponse authenticateUser(LoginDTO loginDTO) {
 		String username = loginDTO.getUsername();
 		UserDetails user = customUserDetailsService.loadUserByUsername(username);
+		if(!user.getPassword().equals(loginDTO.getPassword()))
+			throw new RuntimeException("Incorrect Username/Password");
 		logger.info(user.toString());
 		RefreshToken refreshToken = refreshTokenService.createRefreshToken(user.getUsername());
 		

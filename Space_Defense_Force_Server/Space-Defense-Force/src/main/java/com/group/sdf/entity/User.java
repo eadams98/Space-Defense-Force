@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="users")
@@ -25,9 +27,12 @@ public class User {
 	private Long userId;
 	
 	@Column(name = "EMAIL_ID")
+	//@Size(min = 5, max = 50, message = "Username must be between 5 and 50 characters")
 	private String username;
 	
 	@Column(name = "PASSWORD")
+	@Size(min = 5, max = 50, message = "Username must be between 5 and 50 characters")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", message = "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character")
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
