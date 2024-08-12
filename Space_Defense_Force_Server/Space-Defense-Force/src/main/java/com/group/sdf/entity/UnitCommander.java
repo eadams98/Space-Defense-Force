@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "unit_commanders")
@@ -23,7 +25,10 @@ public class UnitCommander {
 	@Id // Had the wrong import, was changed to persistence
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column	(name = "COMMANDER_ID"      )	private Integer commanderId;
-	@Column	(name = "COMMANDER_NAME"   )	private String 	commanderName; 
+	@Column	(name = "COMMANDER_NAME"   )
+	@Size(min = 5, max = 50, message = "Username must be between 5 and 50 characters")
+    //@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must contain only alphanumeric characters")
+	private String 	commanderName; 
 	@Column	(name = "COMMANDER_PASSWORD")	private String 	commanderPassword;
 	@Column	(name = "COMMANDER_PRESTIGE")	private Integer commanderPrestige;
 	@Column (name = "COMMANDER_XP")			private Integer commanderXP;
