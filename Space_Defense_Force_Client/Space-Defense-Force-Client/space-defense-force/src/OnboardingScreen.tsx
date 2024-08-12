@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import LoadingEllipse from "./utility/loading";
 import { Rocket, RocketLaunch } from "@mui/icons-material";
 import { BoardBtnState, OnboardingScreenProps } from "./types/LandingPageExports";
+import axios from "axios";
 
 export default function OnboardingScreen({
   formState: formToggleState,
@@ -30,7 +31,24 @@ export default function OnboardingScreen({
   };
 
   const handleBoardRequest = () => {
-    //setBoardBtnState({ ...boardBtnState, action: "Loading"});
+    const fetchData = async () => {
+      try {
+        const response = await axios.post<any>("http://localhost:8765/auth/signin", formState);
+        setFormToggleState({
+          ...formToggleState,
+          mode: "Idle"
+        });
+        // Handle successful response here (e.g., store tokens, navigate to another page, etc.)
+      } catch (err) {
+        setFormToggleState({
+          ...formToggleState,
+          mode: "Idle"
+        });
+        // Handle error here (e.g., display error message)
+      }
+    }
+    fetchData()
+   /* //setBoardBtnState({ ...boardBtnState, action: "Loading"});
     setFormToggleState({
       ...formToggleState,
       mode: "Loading"
@@ -41,7 +59,7 @@ export default function OnboardingScreen({
         ...formToggleState,
         mode: "Idle"
       })
-    }, 10000)
+    }, 10000)*/
   }
 
   useEffect(() => {
