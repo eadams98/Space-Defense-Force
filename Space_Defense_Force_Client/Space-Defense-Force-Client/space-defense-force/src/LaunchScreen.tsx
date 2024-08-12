@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField } from "@mui/material";
+import { Alert, Button, Container, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { LaunchScreenProps } from "./types/LandingPageExports";
 import LoadingEllipse from "./utility/loading";
@@ -14,6 +14,10 @@ export default function LaunchScreen({
     password: "",
   });
   const [isDisabled, setIsDisabled] = useState(true);
+  const [axiosResponse, setAxiosResponse] = useState({
+    errorMessage: "",
+    successMessge: ""
+  })
 
   // Handler to update formState when a field changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,6 +29,11 @@ export default function LaunchScreen({
   };
 
   useEffect(() => {
+    setAxiosResponse({
+      errorMessage: "",
+      successMessge: ""
+    })
+
     if (formState.username === "" || formState.password === "") {
       setIsDisabled(true);
       return;
@@ -38,20 +47,45 @@ export default function LaunchScreen({
       ...formToggleState,
       mode: "Loading"
     });
+
+    // A helper function to create a delay
+    const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)); 
+
     const fetchData = async () => {
       try {
-        const response = await axios.post<any>("http://localhost:8765/auth/signin", formState);
-        setFormToggleState({
-          ...formToggleState,
-          mode: "Idle"
-        });
+        const axiosPromise = axios.post<any>("http://localhost:8765/auth/signin", formState);
+        const delayPromise = delay(5000); // 5 seconds delay
+
+        let response: any;
+        try {
+            response = await axiosPromise;
+        } catch (error) {
+            response = error;
+        }
+        
+        // Wait for the delay to finish
+        await delayPromise;
+
+        console.log(response)
+
         // Handle successful response here (e.g., store tokens, navigate to another page, etc.)
-      } catch (err) {
+        if (response && response.status >= 200 && response.status < 300) {
+          setAxiosResponse({
+            errorMessage: "",
+            successMessge: "success"
+          })
+        } else {
+          setAxiosResponse({
+            errorMessage: response.response.data.errorMessage,
+            successMessge: ""
+          })
+        }
+      } finally {
+        // This will always be executed after both the Axios request and delay are resolved
         setFormToggleState({
           ...formToggleState,
           mode: "Idle"
         });
-        // Handle error here (e.g., display error message)
       }
     }
     fetchData()
@@ -62,6 +96,8 @@ export default function LaunchScreen({
       maxWidth="sm"
       style={{ backgroundColor: "white", display: "grid", placeItems: "center" }}
     >
+      { axiosResponse.successMessge == "" ? null : <Alert variant="filled" severity="success">{axiosResponse.successMessge}</Alert>}
+      { axiosResponse.errorMessage == "" ? null :<Alert variant="filled" severity="error">{axiosResponse.errorMessage}</Alert>}
       <h3>Launch Screen</h3>
       <Grid id="top-row" container spacing={2} padding={"5px"}>
         <Grid item xs={12}>
@@ -95,7 +131,7 @@ export default function LaunchScreen({
         <Grid item xs={12}>
           <Button
             variant="contained"
-            disabled={isDisabled || formToggleState.mode === "Loading"}
+            disabled={isDisabled || formToggleState.mode === "Loading" || axiosResponse.errorMessage != ""}
             onClick={handleBoardRequest}
           >
             {formToggleState.mode === "Loading" ? (
