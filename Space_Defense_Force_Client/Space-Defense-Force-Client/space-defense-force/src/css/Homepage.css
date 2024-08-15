@@ -1,0 +1,8 @@
+.dim-white {
+  background-color: rgba(255, 255, 255, 0.5); /* Dim white */
+  transition: background-color 0.3s ease-in-out; /* Smooth transition */
+}
+
+.dim-white:hover {
+  background-color: rgba(255, 255, 255, 1); /* Full white on hover */
+}

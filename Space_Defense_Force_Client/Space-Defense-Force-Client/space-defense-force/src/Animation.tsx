@@ -2,7 +2,13 @@ import { RocketLaunch, Album } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import './css/animation.css';
 
-export default function Animation() {
+interface AnimationProps {
+  toggleStatus: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function Animation({
+  toggleStatus
+}: AnimationProps) {
 
   const [animationStage, setAnimationStage] = useState(0)
   const [meteorStage, setMeteorStage] = useState({
@@ -37,6 +43,10 @@ export default function Animation() {
     setTimeout(() => {
       setAnimationStage(5)
     }, 12500)
+
+    setTimeout(() => {
+      toggleStatus(2)
+    },15000)
     
   }, [])
 
