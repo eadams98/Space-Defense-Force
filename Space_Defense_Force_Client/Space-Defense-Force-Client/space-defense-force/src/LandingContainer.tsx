@@ -1,10 +1,16 @@
-import { Container, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Container, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
 import LaunchScreen from "./LaunchScreen";
 import OnboardingScreen from "./OnboardingScreen";
 import { FormState } from "./types/LandingPageExports";
 
-export default function LandingContainer() {
+interface landingContainerProps {
+  toggleAnimation: React.Dispatch<React.SetStateAction<number>>;
+}
+
+export default function LandingContainer({
+  toggleAnimation: toggleAnimation,
+}: landingContainerProps) {
 
   const [formState, setFormState] = useState<FormState>({
     tab: "Reset",
@@ -59,6 +65,7 @@ export default function LandingContainer() {
       <Grid id="form" container spacing={24} padding={"5px"}>
         <Grid item xs={24}>
           { renderScreen() }
+          <Button variant="contained" onClick={() => {console.log('toggle animation'); toggleAnimation(1)}}>Animation</Button>
         </Grid>
       </Grid>
     </Container>
