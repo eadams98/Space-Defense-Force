@@ -1,12 +1,15 @@
 import { BusinessCenter, Person3, Public, ShoppingCart } from "@mui/icons-material";
 import { AppBar, BottomNavigation, BottomNavigationAction, Button, Container, IconButton, MenuItem, Toolbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react"
+import { useNavigate, Outlet} from 'react-router-dom';
+
 import './css/Homepage.css'
 
 export default function HomePage() {
   const [state, setState] = useState(0);
   const [visibility, setVisibility] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,11 +20,19 @@ export default function HomePage() {
     }, 11000) // visibility + transition time in 
   })
 
+  const goToLogin = () => {
+    navigate("/")
+  }
+
+  const goToBag = () => {
+    navigate('/home/bag')
+  }
+
   return(
     <Container style={{
       opacity: visibility ? 1 : 0, // Control visibility
       //transform: visibility ? 'translateY(0)' : 'translateY(20px)', // Move up slightly on show
-      transition: 'opacity 10s ease-in', //transform 0.5s ease-in', // Smooth transition for both opacity and position
+      transition: 'opacity 3s ease-in', //transform 0.5s ease-in', // Smooth transition for both opacity and position
       display: "grid",
       placeItems: "center",
       height: '100%',
@@ -54,14 +65,14 @@ export default function HomePage() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               News
             </Typography>
-            <Button color="inherit" disabled={isDisabled}>Login </Button>
+            <Button color="inherit" disabled={isDisabled} onClick={goToLogin}>Logout</Button>
           </Toolbar>
         </AppBar>
       </div>
 
       {/* Centered content */}
       <div style={{ alignSelf: 'center', justifySelf: 'center', width: '100%' }}>
-        Centered Content
+        <Outlet />
       </div>
       
       {/* Bottom-aligned content */}
@@ -92,6 +103,7 @@ export default function HomePage() {
               },
             }}
             disabled={isDisabled}
+            onClick={goToBag}
             />
           <BottomNavigationAction label="Shop" icon={<ShoppingCart />} sx={{
               color: 'rgba(255, 255, 255, 0.5)', // Dim white color

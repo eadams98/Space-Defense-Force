@@ -3,12 +3,15 @@ import { useEffect, useState } from "react";
 import { LaunchScreenProps } from "./types/LandingPageExports";
 import LoadingEllipse from "./utility/loading";
 import { Rocket, RocketLaunch } from "@mui/icons-material";
+import { useNavigate } from 'react-router-dom';
+
 import axios from "axios";
 
 export default function LaunchScreen({
   formState: formToggleState,
   setFormState: setFormToggleState,
 }: LaunchScreenProps) {
+  const navigate = useNavigate();
   const [formState, setFormState] = useState({
     username: "",
     password: "",
@@ -52,6 +55,7 @@ export default function LaunchScreen({
     const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)); 
 
     const fetchData = async () => {
+      const isSuccess = false;
       try {
         const axiosPromise = axios.post<any>("http://localhost:8765/auth/signin", formState);
         const delayPromise = delay(5000); // 5 seconds delay
@@ -86,6 +90,7 @@ export default function LaunchScreen({
           ...formToggleState,
           mode: "Idle"
         });
+        if (isSuccess) { setTimeout(() => {navigate("/welcome")},2000)}
       }
     }
     fetchData()

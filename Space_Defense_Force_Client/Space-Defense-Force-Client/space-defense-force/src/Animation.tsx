@@ -1,15 +1,11 @@
 import { RocketLaunch, Album } from "@mui/icons-material";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './css/animation.css';
 
-interface AnimationProps {
-  toggleStatus: React.Dispatch<React.SetStateAction<number>>;
-}
+export default function Animation() {
 
-export default function Animation({
-  toggleStatus
-}: AnimationProps) {
-
+  const navigate = useNavigate();
   const [animationStage, setAnimationStage] = useState(0)
   const [meteorStage, setMeteorStage] = useState({
     first: 0,
@@ -17,36 +13,36 @@ export default function Animation({
   })
 
   useEffect(() => {
+    const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    setAnimationStage(1)
-    
-    setTimeout(() => {
-      setAnimationStage(2)
+    const startAnimation = async () => {
+      await delay(5000);
+      setAnimationStage(2);
       setMeteorStage({
-        "first":1,
-        "second":0
-      })
-    }, 5000)
+        first: 1,
+        second: 0,
+      });
 
-    setTimeout(() => {
-      setAnimationStage(3)
+      await delay(2500); // Delay between the stages
+      setAnimationStage(3);
       setMeteorStage({
-        "first":1,
-        "second":2
-      })
-    }, 7500)
+        first: 1,
+        second: 2,
+      });
 
-    setTimeout(() => {
-      setAnimationStage(4)
-    }, 10000)
+      await delay(2500); // Delay between the stages
+      setAnimationStage(4);
 
-    setTimeout(() => {
-      setAnimationStage(5)
-    }, 12500)
+      await delay(2500); // Delay between the stages
+      setAnimationStage(5);
 
-    setTimeout(() => {
-      toggleStatus(2)
-    },15000)
+      // After all the animations are done, navigate to the home page
+      await delay(2500); // Delay before navigating to home
+      navigate('/home');
+    };
+
+    setAnimationStage(1); // Initial stage
+    startAnimation();
     
   }, [])
 
