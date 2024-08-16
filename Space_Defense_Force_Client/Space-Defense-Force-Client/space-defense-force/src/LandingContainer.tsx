@@ -1,8 +1,9 @@
-import { Container, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Button, Container, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
 import LaunchScreen from "./LaunchScreen";
 import OnboardingScreen from "./OnboardingScreen";
 import { FormState } from "./types/LandingPageExports";
+import { useNavigate } from 'react-router-dom';
 
 export default function LandingContainer() {
 
@@ -10,6 +11,11 @@ export default function LandingContainer() {
     tab: "Reset",
     mode: "Idle"
   })
+  const navigate = useNavigate();
+
+  const goToLoading = () => {
+    navigate('/Welcome');
+  };
 
   // Handler to update formState when a field changes
   const handleInputChange = (
@@ -59,6 +65,7 @@ export default function LandingContainer() {
       <Grid id="form" container spacing={24} padding={"5px"}>
         <Grid item xs={24}>
           { renderScreen() }
+          <Button variant="contained" onClick={goToLoading}>Animation</Button>
         </Grid>
       </Grid>
     </Container>
