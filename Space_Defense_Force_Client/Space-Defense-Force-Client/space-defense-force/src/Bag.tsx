@@ -21,6 +21,26 @@ export default function Bag() {
     {name: "Seite", health: "600", attack: "400",img: "https://parade.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cq_auto:good%2Cw_1200/MTk5NjgwNzkyNDc2MDAxOTIw/life-path-number-7.jpg"},
     {name: "Ocho", health: "300", attack: "700",img: "https://cdn-icons-png.flaticon.com/512/6335/6335618.png"},
     {name: "Nueve", health: "750", attack: "250",img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKHM_zA04I14uJVRh8__4WANFd1unNIYM5CA&s"},
+
+    {name: "Ten", health: "1000", attack: "100", img: "https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_1280.jpg"},
+    {name: "Eleven", health: "700", attack: "300",img: "https://images.unsplash.com/photo-1498719388700-49c6d0cc2e94"},
+    {name: "Twelve", health: "500", attack: "500",img: "https://cdn.pixabay.com/photo/2020/04/28/10/14/white-flower-5103510_1280.jpg"},
+    {name: "Thirteen", health: "900", attack: "100",img: "https://images.unsplash.com/photo-1516117172878-fd2c41f4a759"},
+    {name: "Fourteen", health: "400", attack: "600",img: "https://cdn.pixabay.com/photo/2016/11/29/09/32/advent-1866976_1280.jpg"},
+    {name: "Fifteen", health: "200", attack: "800",img: "https://cdn.pixabay.com/photo/2015/06/19/21/24/avenue-815297_1280.jpg"},
+    {name: "Sixteen", health: "600", attack: "400",img: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0"},
+    {name: "Sevteen", health: "300", attack: "700",img: "https://cdn.pixabay.com/photo/2015/09/18/23/02/night-950198_1280.jpg"},
+    {name: "Eigteen", health: "750", attack: "250",img: "https://images.unsplash.com/photo-1510074377623-d200e3f9f1f2"},
+
+    {name: "Nineteen", health: "850", attack: "150", img: "https://cdn.pixabay.com/photo/2017/06/20/20/42/fuchs-2424369_1280.jpg"},
+    {name: "Twenty", health: "950", attack: "50", img: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e"},
+    {name: "Twenty-One", health: "650", attack: "350", img: "https://cdn.pixabay.com/photo/2017/08/01/08/29/people-2562497_1280.jpg"},
+    {name: "Twenty-Two", health: "550", attack: "450", img: "https://images.unsplash.com/photo-1495567720989-cebdbdd97913"},
+    {name: "Twenty-Three", health: "300", attack: "700", img: "https://cdn.pixabay.com/photo/2014/09/27/13/44/horse-463336_1280.jpg"},
+    {name: "Twenty-Four", health: "800", attack: "200", img: "https://images.unsplash.com/photo-1465101162946-4377e57745c3"},
+    {name: "Twenty-Five", health: "400", attack: "600", img: "https://cdn.pixabay.com/photo/2016/08/13/21/39/woman-1594711_1280.jpg"},
+    {name: "Twenty-Six", health: "900", attack: "100", img: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e"},
+    {name: "Twenty-Seven", health: "250", attack: "750", img: "https://cdn.pixabay.com/photo/2014/09/23/21/04/clouds-458153_1280.jpg"}
   ])
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<{ name: string, health: string, attack: string, img: string } | null>(null);
@@ -48,7 +68,7 @@ export default function Bag() {
       height: '100%'
     }}>
       {/* Top-aligned content */}
-      <div style={{ alignSelf: 'start', justifySelf: 'center', width: '100%', display: "grid", height: "10%", border: "solid red" }}>
+      <div style={{ alignSelf: 'start', justifySelf: 'center', width: '100%', display: "grid", height: "10%" }}>
         <Typography
           sx={{
             justifySelf: "center",
@@ -61,9 +81,9 @@ export default function Bag() {
       </div>
 
       {/* Centered content */}
-      <div style={{ alignSelf: 'center', justifySelf: 'center', width: '100%', height: "80%", display: "grid", border: "solid yellow" }}>
+      <div style={{ alignSelf: 'center', justifySelf: 'center', width: '100%', height: "80%", display: "grid" }}>
         <ImageList sx={{ width: "80%", height: "80%", justifySelf: "center", alignSelf: "center" }} cols={3} rowHeight={125} >
-          {itemData.map((item) => (
+          {itemData.slice((page-1)*9, page*9).map((item) => (
             <Tooltip title="Hover to open modal" placement="top">
               <ImageListItem 
                 key={item.img} 
@@ -91,7 +111,7 @@ export default function Bag() {
       </div>
 
       {/* Bottom-aligned content */}
-      <div style={{ alignSelf: 'end', justifySelf: 'center', width: '100%', height: "10%", display: "grid", border: 'solid green'}}>
+      <div style={{ alignSelf: 'end', justifySelf: 'center', width: '100%', height: "10%", display: "grid"}}>
       <Divider/>
         <Pagination 
           count={5} 
