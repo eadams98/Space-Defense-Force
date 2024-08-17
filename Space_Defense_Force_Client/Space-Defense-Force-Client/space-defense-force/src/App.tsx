@@ -8,6 +8,7 @@ import HomePage from './Homepage';
  import Animation from './Animation';
 import LandingContainer from './LandingContainer';
 import { Card } from '@mui/material';
+import Bag from './Bag';
 
 
 const router = createBrowserRouter([
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
         children: [
           {
             path: "bag", // Nested route for /home/bag
-            element: <Card variant="outlined" sx={{backgroundColor: "white", color: 'black', height: '100%'}}>bag here</Card>,
+            element: <Bag/>
           },
         ]
       },
