@@ -28,6 +28,10 @@ export default function HomePage() {
     navigate('/home/bag')
   }
 
+  const goToBlank = () => {
+    navigate('/home')
+  }
+
   return(
     <Container style={{
       opacity: visibility ? 1 : 0, // Control visibility
@@ -47,6 +51,7 @@ export default function HomePage() {
         <AppBar position="static">
           <Toolbar>
             <IconButton
+              onClick={goToBlank}
               size="large"
               edge="start"
               color="inherit" // This color is for the background of the IconButton, not the icon itself
