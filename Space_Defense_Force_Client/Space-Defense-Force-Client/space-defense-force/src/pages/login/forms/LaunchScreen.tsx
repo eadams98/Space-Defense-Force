@@ -100,11 +100,11 @@ export default function LaunchScreen({
   return (
     <Container
       maxWidth="sm"
-      style={{ backgroundColor: "white", placeItems: "center", height: "100%", width: "100%" }}
+      style={{ backgroundColor: "white", placeItems: "center", height: "85%", width: "100%" }}
     >
       <div style={{ 
         height: "80%",
-        border: "solid red"
+        /*border: "solid red"*/
       }}>
         <div style={{height: "40%"}}>
           <div style={{height: "20%"}}><h3>Launch Screen</h3></div>
@@ -146,7 +146,7 @@ export default function LaunchScreen({
         justifyContent: "center", // Center horizontally
         alignItems: "center",     // Center vertically
         height: "20%",
-        border: "solid yellow",
+        /*border: "solid yellow",*/
       }}>
 
             <Button

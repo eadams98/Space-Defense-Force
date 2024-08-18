@@ -17,7 +17,7 @@ export default function HomePage() {
     }, 1000)
     setTimeout(() => {
       setIsDisabled(false)
-    }, 11000) // visibility + transition time in 
+    }, 5000) // visibility + transition time in 
   })
 
   const goToLogin = () => {
@@ -44,7 +44,7 @@ export default function HomePage() {
       gridTemplateRows: 'auto 1fr auto', // Creates three rows: top, middle, bottom,
       maxWidth: '100%',
       color: 'transparent',
-      border: 'solid red'
+      /*border: 'solid red'*/
    }}>
       {/* Top-aligned content */}
       <div style={{ alignSelf: 'start', justifySelf: 'center', width: '100%'}}>

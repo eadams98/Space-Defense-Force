@@ -47,7 +47,7 @@ export default function LandingContainer() {
 
   return(
     <Container maxWidth="sm" sx={{backgroundColor: "white", minHeight: '500px', opacity: "0.8", height: "500px"}}>
-      <Grid id="toggle-button" spacing={24} padding={"5px"} border={"solid blue"} height={"15%"}>
+      <Grid id="toggle-button" spacing={24} padding={"5px"} /*border={"solid blue"}*/ height={"15%"}>
           <ToggleButtonGroup
             color="primary"
             value={formState.tab}
@@ -60,10 +60,10 @@ export default function LandingContainer() {
             <ToggleButton value="Reset" disabled={formState.mode == "Loading"}>Reset</ToggleButton>
           </ToggleButtonGroup>
       </Grid>
-      <Grid id="form" spacing={24} padding={"5px"} height={"85%"} border={"solid yellow"}>
+      <Grid id="form" spacing={24} padding={"5px"} height={"85%"} /*border={"solid yellow"}*/>
         
           { renderScreen() }
-          {/*<Button variant="contained" onClick={goToLoading}>Animation</Button>*/}
+          {<Button variant="contained" onClick={goToLoading}>Animation</Button>}
         
       </Grid>
     </Container>
