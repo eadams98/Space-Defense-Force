@@ -1,8 +1,8 @@
 import { Button, Container, Grid, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { useState } from "react";
-import LaunchScreen from "./LaunchScreen";
-import OnboardingScreen from "./OnboardingScreen";
-import { FormState } from "./types/LandingPageExports";
+import LaunchScreen from "./forms/LaunchScreen";
+import OnboardingScreen from "./forms/OnboardingScreen";
+import { FormState } from "../../types/LandingPageExports";
 import { useNavigate } from 'react-router-dom';
 
 export default function LandingContainer() {
@@ -63,7 +63,7 @@ export default function LandingContainer() {
       <Grid id="form" spacing={24} padding={"5px"} height={"85%"} border={"solid yellow"}>
         
           { renderScreen() }
-          <Button variant="contained" onClick={goToLoading}>Animation</Button>
+          {/*<Button variant="contained" onClick={goToLoading}>Animation</Button>*/}
         
       </Grid>
     </Container>

@@ -1,7 +1,7 @@
 import { Alert, Button, Container, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import { LaunchScreenProps } from "./types/LandingPageExports";
-import LoadingEllipse from "./utility/loading";
+import { LaunchScreenProps } from "../../../types/LandingPageExports";
+import LoadingEllipse from "../../../utility/loading";
 import { Rocket, RocketLaunch } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 

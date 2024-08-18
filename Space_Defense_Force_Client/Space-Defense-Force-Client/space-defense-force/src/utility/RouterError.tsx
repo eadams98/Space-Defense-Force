@@ -1,5 +1,5 @@
 import { useRouteError } from "react-router-dom";
-import StarfieldCanvas from "./starfieldCanvas";
+import StarfieldCanvas from "../pages/animations/starfieldCanvas";
 
 export default function ErrorPage() {
   const error: any = useRouteError();

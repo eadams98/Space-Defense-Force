@@ -3,7 +3,7 @@ import { AppBar, BottomNavigation, BottomNavigationAction, Button, Container, Ic
 import { useEffect, useState } from "react"
 import { useNavigate, Outlet} from 'react-router-dom';
 
-import './css/Homepage.css'
+import '../../css/Homepage.css'
 
 export default function HomePage() {
   const [state, setState] = useState(0);
