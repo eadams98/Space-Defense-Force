@@ -76,7 +76,7 @@ export default function HomePage() {
       </div>
 
       {/* Centered content */}
-      <div style={{ alignSelf: 'center', justifySelf: 'center', width: '100%' }}>
+      <div style={{ alignSelf: 'center', justifySelf: 'center', width: '100%', height: "80%" }}>
         <Outlet />
       </div>
       
