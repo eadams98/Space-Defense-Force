@@ -1,14 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import LandingPage from './LandingPage';
+import LandingPage from './pages/login/LandingPage';
 import { BrowserRouter as Router, Route, createBrowserRouter, RouterProvider, } from 'react-router-dom';
-import ErrorPage from './RouterError';
-import HomePage from './Homepage';
- import Animation from './Animation';
-import LandingContainer from './LandingContainer';
+import ErrorPage from './utility/RouterError';
+import HomePage from './pages/home/Homepage';
+ import Animation from './pages/animations/Animation';
+import LandingContainer from './pages/login/LandingContainer';
 import { Card } from '@mui/material';
-import Bag from './Bag';
+import Bag from './pages/home/bag/Bag';
 
 
 const router = createBrowserRouter([

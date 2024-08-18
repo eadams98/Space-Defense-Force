@@ -1,7 +1,7 @@
 import { RocketLaunch, Album } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import './css/animation.css';
+import '../../css/animation.css';
 
 export default function Animation() {
 
