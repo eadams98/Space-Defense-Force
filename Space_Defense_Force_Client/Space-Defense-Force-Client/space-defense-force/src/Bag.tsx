@@ -1,5 +1,5 @@
 import { Box, Card, Divider, ImageList, ImageListItem, Modal, Pagination, Paper, Tooltip, Typography, styled } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -10,7 +10,10 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function Bag() {
-  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    actualPage: 1,
+    totalPages: 0
+  });
   const [itemData, setItemData] = useState([
     {name: "Uno", health: "1000", attack: "100", img: "https://cdn.pixabay.com/photo/2012/04/23/15/20/one-38484_1280.png"},
     {name: "Duos", health: "700", attack: "300",img: "https://i.cbc.ca/1.6979706.1695828636!/fileImage/httpImage/image.jpg_gen/derivatives/16x9_780/1890767731.jpg"},
@@ -44,6 +47,10 @@ export default function Bag() {
   ])
   const [open, setOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState<{ name: string, health: string, attack: string, img: string } | null>(null);
+  const [bagState, setBagState] = useState({
+    maxSize: 50,
+    actualSize: 0,
+  });
 
   const handleMouseEnter = (item: { name: string, health: string, attack: string, img: string }) => {
     setHoveredItem(item);
@@ -56,8 +63,22 @@ export default function Bag() {
   };  
 
   const handlePageTransition = (event: React.ChangeEvent<unknown>, value: number) => {
-    setPage(value)
+    setPagination({
+      ...pagination,
+      actualPage: value
+    })
   }
+
+  useEffect(() => {
+    setBagState({
+      ...bagState,
+      actualSize: itemData.length
+    })
+    setPagination({
+      ...pagination,
+      totalPages: itemData.length/9
+    })
+  }, [])
 
   return(
     <Card 
@@ -75,7 +96,8 @@ export default function Bag() {
             alignSelf: "center"
           }}
         >
-          Page: {page}
+          <div>Page: {pagination.actualPage}</div>
+          <div>Bag: {bagState.actualSize}/{bagState.maxSize}</div>
         </Typography>
         <Divider/>
       </div>
@@ -83,7 +105,7 @@ export default function Bag() {
       {/* Centered content */}
       <div style={{ alignSelf: 'center', justifySelf: 'center', width: '100%', height: "80%", display: "grid" }}>
         <ImageList sx={{ width: "80%", height: "80%", justifySelf: "center", alignSelf: "center" }} cols={3} rowHeight={125} >
-          {itemData.slice((page-1)*9, page*9).map((item) => (
+          {itemData.slice((pagination.actualPage-1)*9, pagination.actualPage*9).map((item) => (
             <Tooltip title="Hover to open modal" placement="top">
               <ImageListItem 
                 key={item.img} 
@@ -114,8 +136,8 @@ export default function Bag() {
       <div style={{ alignSelf: 'end', justifySelf: 'center', width: '100%', height: "10%", display: "grid"}}>
       <Divider/>
         <Pagination 
-          count={5} 
-          page={page}
+          count={pagination.totalPages} 
+          page={pagination.actualPage}
           sx={{
             justifySelf: "center",
             alignSelf: "center"
@@ -139,6 +161,7 @@ export default function Bag() {
               border: '2px solid #000',
               boxShadow: 24,
               p: 4,
+              color: "red",
             }}
           >
             {hoveredItem?.name}
