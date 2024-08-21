@@ -1,7 +1,32 @@
+USE defense_force;
+
+--SET GROUP_CONCAT_MAX_LEN=32768;
+
+--SET @tables = NULL;
+--SELECT GROUP_CONCAT('`', table_name, '`') INTO @tables
+--FROM information_schema.tables 
+--WHERE table_schema = 'defense_force';
+
+--SET @tables = IFNULL(@tables, 'dummy_table');
+
+--SET @drop_statement = CONCAT('DROP TABLE IF EXISTS ', @tables);
+--PREPARE stmt FROM @drop_statement;
+--EXECUTE stmt;
+--DEALLOCATE PREPARE stmt;
+
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS refresh_token;
+
+CREATE TABLE unit_commanders (
+	COMMANDER_ID INT AUTO_INCREMENT, 
+	COMMANDER_NAME VARCHAR(30),
+	COMMANDER_PASSWORD VARCHAR (250),
+	COMMANDER_PRESTIGE INT,
+	COMMANDER_XP INT,
+	CONSTRAINT ps_commander_id_pk PRIMARY KEY ( COMMANDER_ID )
+);
 
 CREATE TABLE users (
 	USER_ID BIGINT AUTO_INCREMENT,
@@ -36,29 +61,8 @@ CREATE TABLE refresh_token (
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
 );
 
-INSERT INTO roles VALUES('1','ROLE_USER');
-INSERT INTO roles VALUES('2','ROLE_SUPER_USER');
-INSERT INTO roles VALUES('3','ROLE_ADMIN');
-INSERT INTO users(EMAIL_ID, password, COMMANDER_ID) VALUES('eric051598@gmail.com','password','1');
-#INSERT INTO refresh_token VALUES('1', 
-INSERT INTO user_roles VALUES('1','3');
 #SELECT * FROM users;
 -- MAIN SQL (START)
-
-DROP DATABASE IF EXISTS defense_force;
-CREATE DATABASE defense_force;
-USE defense_force;
-
-
-CREATE TABLE unit_commanders (
-	COMMANDER_ID INT AUTO_INCREMENT, 
-	COMMANDER_NAME VARCHAR(30),
-	COMMANDER_PASSWORD VARCHAR (250),
-	COMMANDER_PRESTIGE INT,
-	COMMANDER_XP INT,
-	CONSTRAINT ps_commander_id_pk PRIMARY KEY ( COMMANDER_ID )
-);
-
 
 CREATE TABLE units (
 	UNIT_ID INT,
@@ -104,8 +108,6 @@ INSERT INTO unit_commanders VALUES(1,'BillyBob','0853a7ee4ac5da6e84cfeb122d948ea
 INSERT INTO unit_commanders VALUES(2,'BossMan','password',100, 0);
 INSERT INTO unit_commanders VALUES(3,'Eric','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',100, 0); 
 
-
-
 INSERT INTO units VALUES(1,'Boom Squad',100, 10, 20, 10, 1);
 
 INSERT INTO upgrade_types VALUES(1001,'Zappy Zap',     100,   10, "long");
@@ -122,6 +124,13 @@ INSERT INTO encounters VALUES(2, "Fodder", 1, 1, 1, 0, 1);
 INSERT INTO encounters VALUES(3, "Zerg the Impulsive", 5, 2, 3, 1, 1);
 INSERT INTO encounters VALUES(4, "Vilgax the Conqueror", 50, 100, 75, 25, 75);
 INSERT INTO encounters VALUES(5, "Brainiac", 100, 1000, 1000, 75, 25);
+
+INSERT INTO roles VALUES('1','ROLE_USER');
+INSERT INTO roles VALUES('2','ROLE_SUPER_USER');
+INSERT INTO roles VALUES('3','ROLE_ADMIN');
+INSERT INTO users(EMAIL_ID, password, COMMANDER_ID) VALUES('eric051598@gmail.com','password','1');
+#INSERT INTO refresh_token VALUES('1', 
+INSERT INTO user_roles VALUES('1','3');
 
 commit;
 
@@ -169,21 +178,21 @@ INSERT INTO encounters VALUES(5, "Brainiac", 100, 1000, 1000, 75, 25);
 
 -- UPDATE unit_commanders SET commander_xp = 0 WHERE commander_id = 1
 
-SELECT  * FROM DEFENSE_FORCE.UPGRADE_TYPES WHERE MODEL_ID = 1001;
+--SELECT  * FROM DEFENSE_FORCE.UPGRADE_TYPES WHERE MODEL_ID = 1001;
 
 -- //JOIN COMMANDER WITH HIS UPGRADES : QUERY 1
 -- join commander with upgrades // this type of multi join seems impossible in Spring 
 -- have to break it up into a few calls 
-Select * FROM 
-DEFENSE_FORCE.UNIT_COMMANDERS UC 
-LEFT JOIN
-DEFENSE_FORCE.UPGRADES U 
-ON UC.COMMANDER_ID = U.COMMANDER_ID
-LEFT JOIN 
-DEFENSE_FORCE.UPGRADE_TYPES UT 
-ON U.MODEL_ID = UT.MODEL_ID 
-AND 
-UT.MODEL_ID = 1001;
+--Select * FROM 
+--DEFENSE_FORCE.UNIT_COMMANDERS UC 
+--LEFT JOIN
+--DEFENSE_FORCE.UPGRADES U 
+--ON UC.COMMANDER_ID = U.COMMANDER_ID
+--LEFT JOIN 
+--DEFENSE_FORCE.UPGRADE_TYPES UT 
+--ON U.MODEL_ID = UT.MODEL_ID 
+--AND 
+--UT.MODEL_ID = 1001;
 
 
 -- //JOIN COMMANDER WITH HIS UPGRADES : QUERY 2
@@ -192,29 +201,29 @@ UT.MODEL_ID = 1001;
 -- we provide upgrade repo with model_id array, and commander_id, written below as complete query
 -- but will be broken in 2 within spring
 
-SELECT * FROM  DEFENSE_FORCE.UPGRADES U
-LEFT JOIN DEFENSE_FORCE.UPGRADE_TYPES UT 
-ON U.MODEL_ID = UT.MODEL_ID 
-WHERE UT.MODEL_ID 
-IN (
-	SELECT U.MODEL_ID FROM  DEFENSE_FORCE.UNIT_COMMANDERS UC, DEFENSE_FORCE.UPGRADES U 
-	WHERE UC.COMMANDER_ID = U.COMMANDER_ID
-	);
+--SELECT * FROM  DEFENSE_FORCE.UPGRADES U
+--LEFT JOIN DEFENSE_FORCE.UPGRADE_TYPES UT 
+--ON U.MODEL_ID = UT.MODEL_ID 
+--WHERE UT.MODEL_ID 
+--IN (
+--	SELECT U.MODEL_ID FROM  DEFENSE_FORCE.UNIT_COMMANDERS UC, DEFENSE_FORCE.UPGRADES U 
+--	WHERE UC.COMMANDER_ID = U.COMMANDER_ID
+--	);
 	
 -- //OTHER JOIN TESTS :
-SELECT * FROM  DEFENSE_FORCE.UPGRADES U 	
-	LEFT JOIN DEFENSE_FORCE.UPGRADE_TYPES UT           	
-	ON U.MODEL_ID = UT.MODEL_ID          
-	WHERE UT.MODEL_ID                    
-	 IN (                                 
-	SELECT UU.MODEL_ID FROM  DEFENSE_FORCE.UPGRADES UU		  
-		WHERE COMMANDER_ID = 1 );
+--SELECT * FROM  DEFENSE_FORCE.UPGRADES U 	
+--	LEFT JOIN DEFENSE_FORCE.UPGRADE_TYPES UT           	
+--	ON U.MODEL_ID = UT.MODEL_ID          
+--	WHERE UT.MODEL_ID                    
+--	 IN (                                 
+--	SELECT UU.MODEL_ID FROM  DEFENSE_FORCE.UPGRADES UU		  
+--		WHERE COMMANDER_ID = 1 );
 
 		
-SELECT * FROM  DEFENSE_FORCE.UPGRADES U 	
-	LEFT JOIN DEFENSE_FORCE.UPGRADE_TYPES UT           	
-	ON U.MODEL_ID = UT.MODEL_ID          
-	WHERE U.COMMANDER_ID = 1;
+--SELECT * FROM  DEFENSE_FORCE.UPGRADES U 	
+--	LEFT JOIN DEFENSE_FORCE.UPGRADE_TYPES UT           	
+--	ON U.MODEL_ID = UT.MODEL_ID          
+--	WHERE U.COMMANDER_ID = 1;
 
 
 ----------------------------------BRANDON'S Start-----------------------------------
