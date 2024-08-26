@@ -57,7 +57,7 @@ export default function LaunchScreen({
     const fetchData = async () => {
       let isSuccess = false;
       try {
-        const axiosPromise = axios.post<any>("http://localhost:8765/auth/signin", formState);
+        const axiosPromise = axios.post<any>("https://www.spacedefenseforces.com/auth/signin", formState);
         const delayPromise = delay(5000); // 5 seconds delay
 
         let response: any;
