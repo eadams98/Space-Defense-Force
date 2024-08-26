@@ -14,10 +14,16 @@ USE defense_force;
 --EXECUTE stmt;
 --DEALLOCATE PREPARE stmt;
 
+-- Drop tables in the correct order to avoid foreign key constraint issues
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS refresh_token;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS refresh_token;
+DROP TABLE IF EXISTS upgrades;
+DROP TABLE IF EXISTS upgrade_types;
+DROP TABLE IF EXISTS units;
+DROP TABLE IF EXISTS encounters;
+DROP TABLE IF EXISTS unit_commanders;
 
 CREATE TABLE unit_commanders (
 	COMMANDER_ID INT AUTO_INCREMENT, 

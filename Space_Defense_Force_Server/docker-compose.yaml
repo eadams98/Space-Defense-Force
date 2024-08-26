@@ -6,7 +6,9 @@ services:
       - ./env/mysql.env
     volumes:
 #      - /Users/repoleved/Desktop/docker/sdf-mysql:/var/lib/mysql
-      - ./initdb:/docker-entrypoint-initdb.d
+      - ./SDF-Database/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"  # Exposing MySQL on the standard port
 #  eureka:
 #    build: 
 #      context: ./recon-discovery-service
