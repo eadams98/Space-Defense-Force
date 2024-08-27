@@ -28,8 +28,16 @@ export default function HomePage() {
     navigate('/home/bag')
   }
 
-  const goToBlank = () => {
+  const goToBase = () => {
     navigate('/home')
+  }
+
+  const goToShop = () => {
+    navigate('/home/shop')
+  }
+
+  const goToProfile = () => {
+    navigate('/home/profile')
   }
 
   return(
@@ -51,7 +59,7 @@ export default function HomePage() {
         <AppBar position="static">
           <Toolbar>
             <IconButton
-              onClick={goToBlank}
+              onClick={goToBase}
               size="large"
               edge="start"
               color="inherit" // This color is for the background of the IconButton, not the icon itself
@@ -97,8 +105,8 @@ export default function HomePage() {
                 color: 'rgba(255, 255, 255, 1)', // Full white on hover
               },
             }}
-            onClick={() => {console.log("profile")}}
             disabled={isDisabled}
+            onClick={goToProfile}
             /> 
           <BottomNavigationAction label="Bag" icon={<BusinessCenter />} sx={{
               color: 'rgba(255, 255, 255, 0.5)', // Dim white color
@@ -118,6 +126,7 @@ export default function HomePage() {
               },
             }}
             disabled={isDisabled}
+            onClick={goToShop}
             />
 
         </BottomNavigation>

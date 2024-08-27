@@ -9,6 +9,7 @@ import HomePage from './pages/home/Homepage';
 import LandingContainer from './pages/login/LandingContainer';
 import { Card } from '@mui/material';
 import Bag from './pages/home/bag/Bag';
+import Dice from './pages/home/dice/Dice';
 
 
 const router = createBrowserRouter([
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
             path: "bag", // Nested route for /home/bag
             element: <Bag/>
           },
+          {
+            path: "shop",
+            element: <Dice/>
+          },
+          {
+            path: "profile",
+            element: <></>
+          }
         ]
       },
   ],
