@@ -36,38 +36,31 @@ public class PlayerAPI {
 	@Autowired
 	private Environment environment; // Eric: added private modifier
 	
-  // Brandon's test 
 	@GetMapping(value="/hello")
-	public ResponseEntity<String>getSome()
-	throws Exception
-		{
+	public ResponseEntity<String>getSome() throws Exception{
 		String message="Hello from Player API HOMIE";
 		return new ResponseEntity<>(message, HttpStatus.OK);
-		}
+	}
 	
 	// PLAYER LOGIN :
 	@PostMapping(value="/login")
-	public ResponseEntity<UnitCommanderDTO> authenticatePlayer( @Valid @RequestBody UnitCommanderDTO unitCommanderDTO)
-	throws Exception //->NEEDS REAL EXCEPTION TYPE , AND LOGGING BELOW 
-		{
+	public ResponseEntity<UnitCommanderDTO> authenticatePlayer( @Valid @RequestBody UnitCommanderDTO unitCommanderDTO) throws Exception { //->NEEDS REAL EXCEPTION TYPE , AND LOGGING BELOW 
 		String name = unitCommanderDTO.getCommanderName();
 		String pass = unitCommanderDTO.getCommanderPassword();
 		UnitCommanderDTO unitCommanderFromDb = playerService.authenticatePlayer(name, pass );
 		return new ResponseEntity<>( unitCommanderFromDb, HttpStatus.OK);
-		}
+	}
 	
 	// NEW PLAYER REGISTRATION :
-	@PostMapping(value="/alter") 
+	@PostMapping(value="/register") 
 	//public ResponseEntity<String> registerPlayer(@Valid @RequestBody UnitCommanderDTO unitCommanderDTO)
-	public ResponseEntity<UnitCommanderDTO> registerPlayer(@Valid @RequestBody UnitCommanderDTO unitCommanderDTO)
-	throws Exception
-		{
+	public ResponseEntity<UnitCommanderDTO> registerPlayer(@Valid @RequestBody UnitCommanderDTO unitCommanderDTO) throws Exception {
 		System.out.println("the commander name "+ unitCommanderDTO.getCommanderName());
 		UnitCommanderDTO registerMessage=playerService.registerNewPlayer(unitCommanderDTO);
-		return new ResponseEntity<>( registerMessage, HttpStatus.OK);
-		}	
+		return new ResponseEntity<>(registerMessage, HttpStatus.OK);
+	}	
 	
-  // Make Unit From given unitDTO and register to UnitCommanderDTO : (?) (point of discussion. Should player be able to create own Unit)
+	// Make Unit From given unitDTO and register to UnitCommanderDTO : (?) (point of discussion. Should player be able to create own Unit)
 	@PutMapping(value="/new-unit/{commanderId}")
 	public UnitCommanderDTO makeUnit(@PathVariable int commanderId, @RequestBody UnitDTO unit) throws Exception {
 		// create new unit with assigned commanderId
@@ -77,24 +70,18 @@ public class PlayerAPI {
 	}
 
 	/// UPDATE - PLAYER PASSWORD :
-	@PutMapping(value="/alter")
-	public ResponseEntity<UnitCommanderDTO>
-	updatePlayerPass( @RequestBody UnitCommanderDTO unitCommanderDTO )
-	throws Exception
-		{
+	@PutMapping(value="/update")
+	public ResponseEntity<UnitCommanderDTO> updatePlayerPass( @RequestBody UnitCommanderDTO unitCommanderDTO ) throws Exception {
 		UnitCommanderDTO updateMessage = playerService.updatePlayerPassword( unitCommanderDTO); // Eric: changed pservice to playerService
 		return new ResponseEntity<>(updateMessage , HttpStatus.OK);
-		}	
+	}	
 	
     /// DELETE - PLAYER :
-	@DeleteMapping(value="/alter") 
-	public ResponseEntity<UnitCommanderDTO>
-	deleteThePlayer( @RequestBody UnitCommanderDTO unitCommanderDTO )
-	throws Exception
-		{
+	@DeleteMapping(value="/delete")
+	public ResponseEntity<UnitCommanderDTO> deleteThePlayer( @RequestBody UnitCommanderDTO unitCommanderDTO ) throws Exception {
 		UnitCommanderDTO updateMessage = playerService.updatePlayer( unitCommanderDTO); // Eric: changed pservice to playerService
 		return new ResponseEntity<>(updateMessage , HttpStatus.OK);
-		}	
+	}	
 	
 	
 	
