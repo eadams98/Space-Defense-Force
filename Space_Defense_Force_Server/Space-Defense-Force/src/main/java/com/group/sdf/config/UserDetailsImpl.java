@@ -17,6 +17,7 @@ public class UserDetailsImpl implements UserDetails {
 	private String username;
 	private String password;
 	private Collection<? extends GrantedAuthority> authorities;
+	private Integer commanderId;
 	
 	public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
@@ -25,21 +26,31 @@ public class UserDetailsImpl implements UserDetails {
 		this.authorities = authorities;
 	}
 	
+	public UserDetailsImpl(Long id, String username, String password, Collection<? extends GrantedAuthority> authorities, int commanderId) {
+		this.commanderId = commanderId;
+		this.username = username;
+		this.password = password;
+		this.authorities = authorities;
+		this.commanderId = commanderId;
+	}
+	
 	public static UserDetailsImpl build(User user) {
 		List<GrantedAuthority> authorities = user.getRoles().stream()
 				.map(role -> new SimpleGrantedAuthority(role.getName().name()))
 				.collect(Collectors.toList());
 
+		Integer commanderId = (user.getUnitCommander() != null) ? user.getUnitCommander().getCommanderId() : null;
 		return new UserDetailsImpl(user.getUserId(),
 				user.getUsername(),
 				user.getPassword(),
-				authorities);
+				authorities,
+				commanderId);
 	}
 
 	@Override
 	public String toString() {
 		return "UserDetailsImpl [id=" + id + ", username=" + username + ", password=" + password + ", authorities="
-				+ authorities + "]";
+				+ authorities + ", commanderId=" + commanderId + "]";
 	}
 
 	@Override
@@ -58,6 +69,10 @@ public class UserDetailsImpl implements UserDetails {
 	public String getUsername() {
 		// TODO Auto-generated method stub
 		return username;
+	}
+	
+	public Integer getCommanderId() {
+		return commanderId;
 	}
 
 	@Override

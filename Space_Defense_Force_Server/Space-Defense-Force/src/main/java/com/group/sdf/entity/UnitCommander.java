@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -45,6 +46,9 @@ public class UnitCommander {
 	@OneToMany(cascade=CascadeType.ALL)	// these 3 lines should be deleted.
 	@JoinColumn(name = "MODEL_ID")		// This is impossible due to the fact there is no column on UnitCommander to connect to MODEL_ID of upgradesType table. UpgradeType connects to Upgrade. Upgrade Connects to UnitCommander
 	private List<UpgradeType> upgradeTypes;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "commander")
+    private Bag bag;
 
 
   // Constructors
@@ -67,6 +71,7 @@ public class UnitCommander {
 	public String 	getCommanderPassword() 	{ return commanderPassword;	} 
 	public Integer 	getCommanderPrestige() 	{ return commanderPrestige;	}  
 	public Integer	getCommanderXP()		{ return commanderXP;		}
+	public Bag		getBag()				{ return bag; }
 	public List<Unit>    getUnit() 			{ return unit;				}
 	public List<Upgrade> getUpgradeList() {		return upgradeList;	}
 	public List<UpgradeType> getUpgradeTypes(){ return upgradeTypes;	} 
