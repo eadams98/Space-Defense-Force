@@ -194,6 +194,35 @@ public class PlayerServiceImpl implements PlayerService{
 		//return updateMessage;
 		}
 
+	@Override
+	public boolean isValidCommander(Integer commanderId) {
+		Optional<UnitCommander> commanderOptional = commanderRepo.findById(commanderId);
+		if (commanderOptional.isPresent())
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean isValidUnit(Integer unitId) {
+		Optional<Unit> unitOptional = unitRepo.findById(unitId);
+		if (unitOptional.isPresent())
+			return true;
+		return false;
+	}
+
+	@Override
+	public Unit getUnit(Integer unitId) {
+		return unitRepo.getById(unitId);
+	}
+
+	@Override
+	public UnitCommander getCommander(Integer commanderId) {
+		Optional<UnitCommander> commanderOptional = commanderRepo.findById(commanderId);
+		if (commanderOptional.isPresent())
+			return commanderOptional.get();
+		return null;
+	}
+
 	
 	
 	
