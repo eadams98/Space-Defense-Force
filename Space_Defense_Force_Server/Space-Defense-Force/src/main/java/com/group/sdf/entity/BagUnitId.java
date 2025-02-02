@@ -5,6 +5,7 @@ import java.util.Objects;
 
 public class BagUnitId implements Serializable {
 
+    // composite primary key
     private Integer bagId;
     private Integer unitId;
 
