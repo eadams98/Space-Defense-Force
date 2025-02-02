@@ -21,18 +21,19 @@ import javax.validation.constraints.Size;
 @Table(name = "unit_commanders")
 public class UnitCommander {
 
-	//BS COMMANDER NEEDS VALIDATION - FOR NEXT RELEASE 
+    //BS COMMANDER NEEDS VALIDATION - FOR NEXT RELEASE 
   // Instance Variables 
 	@Id // Had the wrong import, was changed to persistence
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column	(name = "COMMANDER_ID"      )	private Integer commanderId;
 	@Column	(name = "COMMANDER_NAME"   )
-	@Size(min = 5, max = 50, message = "Username must be between 5 and 50 characters")
+	@Size(min = 4, max = 50, message = "Username must be between 5 and 50 characters")
     //@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must contain only alphanumeric characters")
 	private String 	commanderName; 
 	@Column	(name = "COMMANDER_PASSWORD")	private String 	commanderPassword;
 	@Column	(name = "COMMANDER_PRESTIGE")	private Integer commanderPrestige;
 	@Column (name = "COMMANDER_XP")			private Integer commanderXP;
+	@Column (name = "STAMINA")              private Integer commanderStamina;
 
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -72,6 +73,7 @@ public class UnitCommander {
 	public Integer 	getCommanderPrestige() 	{ return commanderPrestige;	}  
 	public Integer	getCommanderXP()		{ return commanderXP;		}
 	public Bag		getBag()				{ return bag; }
+	public Integer  getStamina()            { return commanderStamina; }
 	public List<Unit>    getUnit() 			{ return unit;				}
 	public List<Upgrade> getUpgradeList() {		return upgradeList;	}
 	public List<UpgradeType> getUpgradeTypes(){ return upgradeTypes;	} 
@@ -83,8 +85,16 @@ public class UnitCommander {
 	public void setCommanderXP(	Integer commanderXP		)			{ this.commanderXP 		= commanderXP;		}
 	public void setUnit( List<Unit> unit)							{ this.unit 			= unit; 			}
 	public void setUpgradeList(List<Upgrade> upgradeList) {		this.upgradeList = upgradeList;	}
-	public void setUpgradeTypes(List<UpgradeType> upgradeTypes  )	{ this.upgradeTypes 	= upgradeTypes;		} 
+	public void setUpgradeTypes(List<UpgradeType> upgradeTypes  )	{ this.upgradeTypes 	= upgradeTypes;		}
+	public void setStamina(Integer stamina)                        { this.commanderStamina = stamina; }
 	
+	@Override
+    public String toString() {
+        return "UnitCommander [commanderId=" + commanderId + ", commanderName=" + commanderName + ", commanderPassword="
+                + commanderPassword + ", commanderPrestige=" + commanderPrestige + ", commanderXP=" + commanderXP
+                + ", commanderStamina=" + commanderStamina + ", unit=" + unit + ", upgradeList=" + upgradeList
+                + ", upgradeTypes=" + upgradeTypes + ", bag=" + bag + "]";
+    }
 	
 	@Override
 	public int hashCode() {

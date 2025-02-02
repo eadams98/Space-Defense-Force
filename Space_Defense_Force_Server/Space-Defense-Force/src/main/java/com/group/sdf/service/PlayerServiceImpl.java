@@ -6,12 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+//import javax.transaction.Transactional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.group.sdf.dto.UnitCommanderDTO;
 import com.group.sdf.dto.UnitDTO;
 import com.group.sdf.dto.UpgradeDTO;
@@ -223,134 +225,22 @@ public class PlayerServiceImpl implements PlayerService{
 		return null;
 	}
 
+    @Override
+    public Boolean saveCommander(UnitCommander uc) {
+        if (uc == null)
+            return false;
+        try {
+            logger.info("save entity start");
+            commanderRepo.save(uc);
+            logger.info("save entity end");
+        } catch (Exception ex) {
+            ex.printStackTrace();  // Print full stack trace to see the exact cause
+        }
+        return true;
+    }
+
 	
 	
 	
 	
-}////END CLASS
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////    SERVICE CODE BONEYARD   ///////////////////////////////////////////
-/// DEPRECATED CODE SAMPLES 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*
-
-
-///////////////////////////////////////////
-////// BELOW FROM PLAYER LOGIN  SERVICE 
-///////////////////////////////////////////
-/// COMBINING UPGRADES WITH EXISTING DTO AND QUERIES THUS FAR
-/// Send new query to Upgrade Type Repo  by accessing one of the model ids on the current DTO object return by first repo query 
-/// we will have to get and create array of all ids then process query to get all ids in our array 
-/// or we do a query to the Upgrade table and get return items that way by model id  
-// call upgrade query unpack results to logger
-///BS DEBUG TEST NEW QUERY BELOW 
-
-
-//Optional<Upgrade> upgradeDetails = upgradeRepository.getAllCommanderUpgrades(dbResponse.getCommanderId());
-//Upgrade   upgradesResponse =  upgradeDetails.orElseThrow( ()-> new Exception("Nothing Found on Upgrades Query") );
-//logger.info("<<<-----QUICK TEST---->>> size, modelId "  + upgradesResponse.getUpgradeTypeList().size() + upgradesResponse.getUpgradeTypeList().get(0).getModelId()) ;
-//
-//
-
-//List <Upgrade> upgradeDetails = upgradeRepository.getAllCommanderUpgrades(dbResponse.getCommanderId());
-//logger.info("<<< New Query Upgrade_Type  LIST SIZE = >>> "+  upgradeDetails.get(0).getUpgradeTypeList().size() +" " +upgradeDetails.get(0).getUpgradeTypeList());
-//for ( Upgrade u : upgradeDetails)
-//{
-//	 logger.info("<<< New Query Upgrade data using commander_id = ( "+ dbResponse.getCommanderId() +" ) :>>> "+ u.getUpgradeId() + ", "+ u.getCommanderId() + ", "
-//     + u.getModelId() + " "+ u.getUpgradeTypeList());
-//	 for ( UpgradeType up : u.getUpgradeTypeList())
-//	 {
-//	 logger.info("<<< New Query UpgradeType data received:>>> ");
-//	  logger.info("<<< New Query UpgradeType data:>>> " 
-//			 + "modelid   :"  + up.getModelId() + ", " ); 
-////			 + "modelName :"  + up.getModelName() + ", "
-////			 + "type 	  :"  + up.getType() + ", "
-////			 + "presCost  :"  + up.getPrestigeCost() + ", "
-////			 + "score     :"  + up.getScore() + ", "
-////			  );
-//	 }
-//}
-
-     	      ////>>>BELOW THE MORE MANUAL WAY OF OBTAINING UPGRADE_TYPE LIST BY COMMANDER 
-     	       * >> WOULD GET LIST OF MODEL IDS FROM EXISTING DTO , PUT IN ARRAY, PASS TO QUERY TO UPGRADE_TYPE REPO 
-     	       *>> SET THAT RESULT ON COMMANDER DTO 
-//    	     List <UpgradeType> upgradeTypesList = upgradeTypeRepository.getById(ucDTO.getUpgradeDTOList().get(0).getModelId());
-    	     Integer id =ucDTO.getUpgradeDTOList().get(0).getModelId();
-    	     int listLength = ucDTO.getUpgradeDTOList().size();
-    	     int []  modelids = new int[ listLength  ];
-    	     //get all ids from dto query put in array
-    	     for( int i=0; i<listLength; i++) { modelids[i] = ucDTO.getUpgradeDTOList().get(i).getModelId();}
-    	     List <UpgradeType> upgradeTypesListB = upgradeTypeRepository.getAllBysId(modelids);
-    	         	     
-			 logger.info("<<<>>> this is the id passing the query <<<>>> "+ id);
-//			  Optional<UpgradeType> optionalUpgradeType = upgradeTypeRepository.findById(1001);
-//    	     List <UpgradeType> upgradeTypesList = upgradeTypeRepository.getById(id);
-			 List<UpgradeTypeDTO>commanderUpgradesList = new ArrayList<>(); 
-			 /// UPDATE THIS TO PASS ARRAY - UPDATE QUERY TO GRAB ALL MODEL IDS IN THAT ARRAY FROM TABLE
-			    for (UpgradeType ee : upgradeTypesListB  )
-	    	     {
-//			    	//>> PRINT OUTS BELOW FOR DEBUG PURPOSES  
-//	    	         logger.info("<<< upgrade types model name >>> "+  ee.getModelName());
-//	    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getType());
-//	    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getPrestigeCost());
-//	    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getScore());
-//	    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getModelId());
-	    	         UpgradeTypeDTO  uptDTO = new UpgradeTypeDTO();
-	    	         uptDTO.setModelId(ee.getModelId());
-	    	         uptDTO.setModelName(ee.getModelName());
-	    	         uptDTO.setPrestigeCost(ee.getPrestigeCost());
-	    	         uptDTO.setScore(ee.getScore());
-	    	         uptDTO.setType(ee.getType());
-	    	        commanderUpgradesList.add(uptDTO);
-	    	     }
-			    ucDTO.setUpgradeTypeDTOList(commanderUpgradesList);
-			 
-			 
-    	     List <UpgradeType> upgradeTypesList = upgradeTypeRepository.getById(id);
-//    	     for (UpgradeType ee : upgradeTypesList  )
-//    	     {
-//    	         logger.info("<<< upgrade types model name >>> "+  ee.getModelName());
-//    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getType());
-//    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getPrestigeCost());
-//    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getScore());
-//    	         logger.info("<<< the one item in upgrade types >>> "+  ee.getModelId());
-//    	         UpgradeTypeDTO  uptDTO = new UpgradeTypeDTO();
-//    	         uptDTO.setModelId(ee.getModelId());
-//    	         uptDTO.setModelName(ee.getModelName());
-//    	         uptDTO.setPrestigeCost(ee.getPrestigeCost());
-//    	         uptDTO.setScore(ee.getScore());
-//    	         uptDTO.setType(ee.getType());
-//    	        commanderUpgradesList.add(uptDTO);
-//    	     }
-    	     /// declare new list
-    	  
-    	     /// map responses to dto then to dto list and set on current commander dto
-//    	     	{
-//    	    	  UpgradeTypeDTO upTypesDTO = new UpgradeTypeDTO(upType.getModelId(), upType.getModelName(), upType.getScore(), upType.getPrestigeCost(), upType.getType(), null  );
-//    	    	  commanderUpgradesList.add(upTypesDTO);
-//    	    	}
-//    	     ucDTO.setUpgradeTypeDTOList(commanderUpgradesList);
-//    	     
-    	     
-    	     
-    	     logger.info("<<< the one item in upgrade types >>> "+  ucDTO.getUpgradeDTOList());
-			 for  (UpgradeDTO  udl : ucDTO.getUpgradeDTOList()) {
-//				  List <UpgradeType> upgradeTypesList = upgradeTypeRepository.getById(udl.getModelId());
-				  logger.info("<<< the one item in upgrade types >>> "+  udl.getModelId());
-			 }
-
-///////////////////////////////////////////
-////// ABOVE FROM PLAYER LOGIN  SERVICE 
-///////////////////////////////////////////
-			
-			
-
-*/
-
-
-
-
+}

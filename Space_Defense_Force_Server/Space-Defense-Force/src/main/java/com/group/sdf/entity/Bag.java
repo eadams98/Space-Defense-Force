@@ -54,5 +54,10 @@ public class Bag {
 		this.bagUpgrades = bagUpgrades;
 	}
 
+    @Override
+    public String toString() {
+        return "Bag [bagId=" + bagId + ", bagUnits=" + bagUnits + ", bagUpgrades=" + bagUpgrades + "]";
+    }
+
 }
 

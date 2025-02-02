@@ -1,6 +1,8 @@
 package com.group.sdf.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -8,9 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.group.sdf.dto.BattleResultDTO;
 import com.group.sdf.entity.Encounter;
 import com.group.sdf.entity.Unit;
 import com.group.sdf.entity.UnitCommander;
+import com.group.sdf.enums.Winner;
 import com.group.sdf.repository.BagRepository;
 import com.group.sdf.utility.JwtUtils;
 
@@ -32,19 +36,20 @@ public class GameServiceImpl implements GameService {
 	private JwtUtils jwtUtil;
 
 	@Override
-	public Map<Integer, Map<String, String>> battle(int unitId, int encounterId, String token) throws Exception {
+	public List<BattleResultDTO> battle(int unitId, int encounterId, String token) throws Exception {
 		
 		validateEntities(unitId, encounterId, token);
 		
 		Encounter encounter = encounterService.getEncounterEntity(encounterId);
 		Unit unit = playerService.getUnit(unitId);
 		
-		Map<Integer, Map<String, String>> gameResults = conductBattle(encounter, unit);
+		List<BattleResultDTO> gameResults = conductBattle(encounter, unit);
 		
 		return gameResults;
 	}
 	
-	private Map<Integer, Map<String, String>> conductBattle(Encounter encounter, Unit unit) throws Exception {
+	private List<BattleResultDTO> conductBattle(Encounter encounter, Unit unit) throws Exception {
+	    
 		if (encounter == null || unit == null)
 			throw new Exception("encounter or unit null. Not able to conduct battle");
 		
@@ -58,13 +63,17 @@ public class GameServiceImpl implements GameService {
 		Integer enemyDamage = encounter.getEnemyDamage();
 		Integer enemyShield = encounter.getEnemyShield();
 		
-		Map<Integer, Map<String, String>> battleResults = new HashMap<>();
+		List<BattleResultDTO> battleResultList = new ArrayList<>();
+		
 		Random random = new Random();
 		Integer turn = 1;
+		Integer DICE_OFFSET = 1;
 		
 		while (currentUnitHealth > 0 && currentEnemyHealth > 0) {
+		    BattleResultDTO battleResult = new BattleResultDTO();
+		    
 			// Unit's turn to attack
-            Integer unitDiceRoll = random.nextInt(6) + 1; // Roll a 6-sided dice
+            Integer unitDiceRoll = random.nextInt(6) + DICE_OFFSET; // Roll a 6-sided dice
             Integer unitAttack = unitDiceRoll + unitDamage;
             if (enemyShield != 0) {
             	enemyShield = enemyShield - unitAttack;
@@ -75,12 +84,11 @@ public class GameServiceImpl implements GameService {
             currentEnemyHealth -= unitAttack;
             
             // Record unit's attack results
-            Map<String, String> turnResult = new HashMap<>();
-            turnResult.put("turn", turn.toString());
-            turnResult.put("unitDiceRoll", unitDiceRoll.toString());
-            turnResult.put("unitAttack", unitAttack.toString());
-            turnResult.put("enemyRemainingHealth", String.valueOf(Math.max(0, currentEnemyHealth)));
-            turnResult.put("enemyRemainingShield", String.valueOf(enemyShield));
+            battleResult.setTurn(turn);
+            battleResult.setUnitDiceRoll(unitDiceRoll);
+            battleResult.setUnitAttack(unitAttack);
+            battleResult.setEnemyHealth(Math.max(0, currentEnemyHealth));
+            battleResult.setEnemyShield(enemyShield);
             
             // Enemy's turn to attack if it's still alive
             if (currentEnemyHealth > 0) {
@@ -97,32 +105,28 @@ public class GameServiceImpl implements GameService {
                 
 
                 // Record enemy's attack results
-                turnResult.put("enemyDiceRoll", enemyDiceRoll.toString());
-                turnResult.put("enemyAttack", enemyAttack.toString());
-                turnResult.put("unitRemainingHealth", String.valueOf(Math.max(0, currentUnitHealth)));
-                turnResult.put("unitRemainingShield", String.valueOf(unitShield));
+                battleResult.setEnemyDiceRoll(enemyDiceRoll);
+                battleResult.setEnemyAttack(enemyAttack);
+                battleResult.setUnitHealth(Math.max(0, currentUnitHealth));
+                battleResult.setUnitShield(unitShield);
             }
 
             // Record the turn result
-            turnResult.put("winner", currentUnitHealth <= 0 ? "Enemy" : (currentEnemyHealth <= 0 ? "Unit" : "None"));
-            battleResults.put(turn, turnResult);
-
+            battleResult.setWinner(currentUnitHealth <= 0 ? Winner.ENCOUNTER : (currentEnemyHealth <= 0 ? Winner.COMMANDER : Winner.NONE));
+            battleResultList.add(battleResult);
+            
             turn++;
 
 		}
 		
-		return battleResults;
+		return battleResultList;
 		
 	}
 	
 	private void validateEntities(int unitId, int encounterId, String token) throws Exception {
-		logger.info("token: " + token);
+	    
 		Integer commanderId = jwtUtil.getCommanderIdFromToken(token);
-		logger.info("commander id " + commanderId);
 		UnitCommander commander = playerService.getCommander(commanderId);
-		
-		logger.info("bag unit size: " + commander.getBag().getBagUnits().size());
-		logger.info("bag unit 1: " + commander.getBag().getBagUnits().get(0).getUnit());
 		
 		if(!encounterService.isValidEncounter(encounterId))
 			throw new Exception("Not a valid encounterId");
@@ -133,6 +137,20 @@ public class GameServiceImpl implements GameService {
 		
 		if (!bagRepository.existsByUnitIdAndCommanderId(unitId, commanderId))
 			throw new Exception("Commander doesn't own this unit");
+		
+		Encounter encounter = encounterService.getEncounterEntity(encounterId);
+		Integer encounterCost = encounter.getStaminaCost();
+		
+		if (commander.getStamina() < encounterCost) // hard coded 
+		    throw new Exception("Commander doesn't have enough stamina");
+		
+		commander.setStamina(commander.getStamina() - encounterCost);
+		try {
+		    playerService.saveCommander(commander);
+		    logger.info("saved commander"); 
+		} catch (Exception ex) {
+            ex.printStackTrace();  
+        }
 	}
 
 }

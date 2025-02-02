@@ -91,13 +91,15 @@ CREATE TABLE bag_upgrades (
 
 CREATE TABLE encounters (
 	ENEMY_ID INT,
-	ENEMY_NAME VARCHAR(30),
-	ENEMY_HEALTH INT,
-	ENEMY_XP_GIVEN INT,
-	ENEMY_PRESTIGE_GIVEN INT,
-	ENEMY_SHIELD INT,
-	ENEMY_DAMAGE INT,
+	ENEMY_NAME VARCHAR(30) NOT NULL,
+	ENEMY_HEALTH INT NOT NULL,
+	ENEMY_XP_GIVEN INT NOT NULL,
+	ENEMY_PRESTIGE_GIVEN INT NOT NULL,
+	ENEMY_SHIELD INT NOT NULL,
+	ENEMY_DAMAGE INT NOT NULL,
 	LIMIT_UNITS INT,
+    ENCOUNTER_COST INT NOT NULL,
+    -- field for encounter cost
 	constraint weapon_id_pk primary key ( ENEMY_ID )
 );
 
@@ -162,11 +164,11 @@ INSERT INTO upgrades VALUES(10102,1002,1);
 INSERT INTO upgrades VALUES(10103,1003,2);
 
 
-INSERT INTO encounters VALUES(1,'Blerg',100, 20, 50, 5, 5, 0);
-INSERT INTO encounters VALUES(2, "Fodder", 1, 1, 1, 0, 1, 0);
-INSERT INTO encounters VALUES(3, "Zerg the Impulsive", 5, 2, 3, 1, 1, 0);
-INSERT INTO encounters VALUES(4, "Vilgax the Conqueror", 50, 100, 75, 25, 75, 0);
-INSERT INTO encounters VALUES(5, "Brainiac", 100, 1000, 1000, 75, 25, 0);
+INSERT INTO encounters VALUES(1,'Blerg',100, 20, 50, 5, 5, 0, 10);
+INSERT INTO encounters VALUES(2, "Fodder", 1, 1, 1, 0, 1, 0, 0);
+INSERT INTO encounters VALUES(3, "Zerg the Impulsive", 5, 2, 3, 1, 1, 0, 1);
+INSERT INTO encounters VALUES(4, "Vilgax the Conqueror", 50, 100, 75, 25, 75, 0, 50);
+INSERT INTO encounters VALUES(5, "Brainiac", 100, 1000, 1000, 75, 25, 0, 100);
 
 commit;
 

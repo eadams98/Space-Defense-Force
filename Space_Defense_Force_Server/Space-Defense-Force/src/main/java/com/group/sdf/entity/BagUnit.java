@@ -14,7 +14,8 @@ import javax.persistence.Table;
 @Table(name = "bag_units")
 @IdClass(BagUnitId.class)
 public class BagUnit {
-	@Id
+
+    @Id
     @Column(name = "BAG_ID", nullable = false) // Match the name in BagUnitId
     private Integer bagId;
 
@@ -53,6 +54,11 @@ public class BagUnit {
 
     public void setUnit(Unit unit) {
         this.unit = unit;
+    }
+    
+    @Override
+    public String toString() {
+        return "BagUnit [bagId=" + bagId + ", unitId=" + unitId + ", unit=" + unit + "]";
     }
 }
 

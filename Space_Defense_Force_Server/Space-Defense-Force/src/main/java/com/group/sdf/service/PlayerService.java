@@ -29,5 +29,7 @@ public interface PlayerService {
 	  Unit getUnit(Integer unitId);
 	  
 	  UnitCommander getCommander(Integer commanderId);
+	  
+	  Boolean saveCommander(UnitCommander uc);
 
 }

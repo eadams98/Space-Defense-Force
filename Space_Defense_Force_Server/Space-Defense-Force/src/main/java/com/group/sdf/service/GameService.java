@@ -1,9 +1,11 @@
 package com.group.sdf.service;
 
-import java.util.Map;
+import java.util.List;
+
+import com.group.sdf.dto.BattleResultDTO;
 
 public interface GameService {
 
-	Map<Integer, Map<String, String>> battle(int unitId, int encounterId, String token) throws Exception;
+	List<BattleResultDTO> battle(int unitId, int encounterId, String token) throws Exception;
 	
 }
