@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+
+import com.group.sdf.config.UserDetailsImpl;
+
 import io.jsonwebtoken.*;
 
 @Component
@@ -19,12 +22,16 @@ public class JwtUtils {
 	@Value("${app.jwtSecret}")
 	private String jwtSecret;
 	
+	private final static int MS_TO_SECOND = 1000;
+    private final static int SECOND_TO_MIN = 60;
+    private final static int TEN = 10;
 	//@Value("{app.jwtExpirationMs}")
-	private int jwtExpirationMs = 10*60*60;
+	private int jwtExpirationMs = MS_TO_SECOND * SECOND_TO_MIN * TEN; // 10 min
 	
-	public String generateJwtToken(UserDetails userDetails) {
+	public String generateJwtToken(UserDetailsImpl userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("role", userDetails.getAuthorities().toArray().toString());
+		claims.put("commanderId", userDetails.getCommanderId());
 		return doGenerateToken(claims, userDetails.getUsername());
 
 	}
@@ -53,6 +60,10 @@ public class JwtUtils {
 
 	public Date getExpirationDateFromToken(String token) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException {
 		return getClaimFromToken(token, Claims::getExpiration);
+	}
+	
+	public Integer getCommanderIdFromToken(String token) throws ExpiredJwtException, UnsupportedJwtException, MalformedJwtException, SignatureException, IllegalArgumentException {
+		return getAllClaimsFromToken(token).get("commanderId", Integer.class);
 	}
 
 	public <T> T getClaimFromToken(String token, Function<Claims, T> claimsResolver) {

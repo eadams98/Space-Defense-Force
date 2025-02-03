@@ -20,7 +20,10 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     @Autowired
     private UserRepository userRepository;
 
-    private static final long REFRESH_TOKEN_EXPIRATION = 3600;//1 * 24 * 60 * 60 * 1000L; // 1 day //7 * 24 * 60 * 60 * 1000L; // 7 days
+    private final static int MS_TO_SECOND = 1000;
+    private final static int SECOND_TO_MIN = 60;
+    private final static int MIN_TO_HOUR = 60;
+    private static final long REFRESH_TOKEN_EXPIRATION = MS_TO_SECOND * SECOND_TO_MIN * MIN_TO_HOUR; //1 hour
 
     @Override
     public Optional<RefreshToken> findByToken(String token) {

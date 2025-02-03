@@ -26,6 +26,8 @@ public class Encounter {
 	private Integer enemyShield;
 	@Column	(name = "ENEMY_DAMAGE")
 	private Integer enemyDamage;
+	@Column (name = "ENCOUNTER_COST")
+	private Integer staminaCost;
 	
 	@Column (name = "ENEMY_PRESTIGE_GIVEN")
 	private Integer enemyPrestigeGiven;
@@ -86,7 +88,15 @@ public class Encounter {
 		this.enemyPrestigeGiven = enemyPrestigeGiven;
 	}
 
-	@Override
+	public Integer getStaminaCost() {
+        return staminaCost;
+    }
+
+    public void setStaminaCost(Integer staminaCost) {
+        this.staminaCost = staminaCost;
+    }
+
+    @Override
 	public int hashCode() {
 		return Objects.hash(enemyDamage, enemyHealth, enemyId, enemyName, enemyPrestigeGiven, enemyShield,
 				enemyXPGiven);

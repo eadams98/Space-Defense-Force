@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.group.sdf.api.ComputerAPI;
@@ -104,6 +107,71 @@ public class EncounterServiceImpl implements EncounterService {
 		updatedCommanderDTO.setCommanderXP( commander.getCommanderXP() + encounter.getEnemyXPGiven() );
 		
 		return updatedCommanderDTO;
+	}
+
+	@Override
+	public List<EncounterDTO> getEncounterPage(Integer pageNo, Integer pageSize) throws Exception {
+		// TODO Auto-generated method stub
+
+		int offsetZeroIndex = 1;
+		pageNo -= offsetZeroIndex;
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+		Page<Encounter> encounterPage = encounterRepository.findAll(pageable);
+		
+		if (encounterPage.getNumberOfElements() == 0)
+			throw new Exception("failure, no results in page");
+		
+		List<EncounterDTO> encounters = new ArrayList<>();
+		encounterPage.forEach(e -> {
+			EncounterDTO eDTO = new EncounterDTO();
+			eDTO.setEnemyDamage(e.getEnemyDamage());
+			eDTO.setEnemyHealth(e.getEnemyHealth());
+			eDTO.setEnemyPrestigeGiven(e.getEnemyPrestigeGiven());
+			eDTO.setEnemyXPGiven(e.getEnemyXPGiven());
+			eDTO.setEnemyName(e.getEnemyName());
+			eDTO.setEnemyId(e.getEnemyId());
+			encounters.add(eDTO);
+		});
+		
+		return encounters;
+	}
+
+	@Override
+	public Integer getNumberOfEncountersForPagesOfSize(Integer pageSize) {
+		Pageable pageable = PageRequest.ofSize(pageSize);
+		Page<Encounter> encounterPage = encounterRepository.findAll(pageable);
+		return encounterPage.getTotalPages(); 
+	}
+
+	@Override
+	public EncounterDTO getEncounterDTO(Integer encounterId) throws Exception {
+		// TODO Auto-generated method stub
+		Optional<Encounter> encounterOptional = encounterRepository.findById(encounterId);
+		
+		Encounter encounter = encounterOptional.orElseThrow(() -> new Exception("Not a valid encounter id"));
+		
+		EncounterDTO eDTO = new EncounterDTO();
+		eDTO.setEnemyHealth(encounter.getEnemyHealth());
+		eDTO.setEnemyDamage(encounter.getEnemyDamage());
+		eDTO.setEnemyName(encounter.getEnemyName());
+		eDTO.setEnemyPrestigeGiven(encounter.getEnemyPrestigeGiven());
+		eDTO.setEnemyShield(encounter.getEnemyShield());
+		eDTO.setEnemyXPGiven(encounter.getEnemyXPGiven());
+		
+		return eDTO;
+	}
+
+	@Override
+	public boolean isValidEncounter(Integer encounterId) throws Exception {
+		Optional<Encounter> encounterOptional = encounterRepository.findById(encounterId);
+		if(encounterOptional.isPresent())
+			return true;
+		return false;
+	}
+
+	@Override
+	public Encounter getEncounterEntity(Integer encounterId) throws Exception {
+		return encounterRepository.getById(encounterId);
 	}
 
 }

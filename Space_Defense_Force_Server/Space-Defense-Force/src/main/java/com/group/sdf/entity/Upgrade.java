@@ -28,7 +28,8 @@ import net.bytebuddy.asm.Advice.This;
 @Table(name = "upgrades")
 //@SecondaryTable(name = "upgrade_types")
 public class Upgrade {
-	//Instance Variables
+
+    //Instance Variables
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="UPGRADE_ID")
@@ -96,6 +97,12 @@ public class Upgrade {
 		return Objects.equals(commanderId, other.commanderId) && Objects.equals(upgradeId, other.upgradeId)
 				&& Objects.equals(upgradeType, other.upgradeType);
 	}
+	
+	@Override
+    public String toString() {
+        return "Upgrade [upgradeId=" + upgradeId + ", commanderId=" + commanderId + ", upgradeType=" + upgradeType
+                + "]";
+    }
 
 	
 

@@ -26,5 +26,12 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 		logger.info(user.getRoles().toString());
 		return UserDetailsImpl.build(user);
 	}
+	
+	public UserDetailsImpl loadUserByUsernameExtra(String username) throws UsernameNotFoundException {
+		logger.info("searching for username; " + username);
+		User user = userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
+		logger.info(user.getRoles().toString());
+		return UserDetailsImpl.build(user);
+	}
 
 }
