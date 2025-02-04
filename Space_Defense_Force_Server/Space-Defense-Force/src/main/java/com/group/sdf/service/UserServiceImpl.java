@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.group.sdf.config.UserDetailsImpl;
 import com.group.sdf.dto.CreateUserDTO;
 import com.group.sdf.dto.JwtResponse;
 import com.group.sdf.dto.LoginDTO;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
-	UserDetailsService customUserDetailsService;
+	CustomUserDetailsServiceImpl customUserDetailsService;
 	
 	@Autowired
 	private JwtUtils jwtUtil;
@@ -55,7 +56,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public JwtResponse authenticateUser(LoginDTO loginDTO) {
 		String username = loginDTO.getUsername();
-		UserDetails user = customUserDetailsService.loadUserByUsername(username);
+		UserDetailsImpl user = customUserDetailsService.loadUserByUsernameExtra(username); 
+
 		if(!user.getPassword().equals(loginDTO.getPassword()))
 			throw new RuntimeException("Incorrect Username/Password");
 		logger.info(user.toString());
@@ -77,7 +79,7 @@ public class UserServiceImpl implements UserService {
 	            .map((RefreshToken refreshToken) -> refreshTokenService.verifyExpiration(refreshToken))
 	            .map((RefreshToken refreshToken) -> refreshToken.getUser())
 	            .map((User user) -> {
-	            	UserDetails userDetails =customUserDetailsService.loadUserByUsername(user.getUsername());
+	            	UserDetailsImpl userDetails =customUserDetailsService.loadUserByUsernameExtra(user.getUsername());
 	                String token = jwtUtil.generateJwtToken(userDetails);
 	                return token;
 	            })

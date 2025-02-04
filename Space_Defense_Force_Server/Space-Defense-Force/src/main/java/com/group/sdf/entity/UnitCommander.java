@@ -1,5 +1,6 @@
 package com.group.sdf.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects; // Eric: Don't think we need this
 
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -20,18 +22,20 @@ import javax.validation.constraints.Size;
 @Table(name = "unit_commanders")
 public class UnitCommander {
 
-	//BS COMMANDER NEEDS VALIDATION - FOR NEXT RELEASE 
+    //BS COMMANDER NEEDS VALIDATION - FOR NEXT RELEASE 
   // Instance Variables 
 	@Id // Had the wrong import, was changed to persistence
 	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	@Column	(name = "COMMANDER_ID"      )	private Integer commanderId;
 	@Column	(name = "COMMANDER_NAME"   )
-	@Size(min = 5, max = 50, message = "Username must be between 5 and 50 characters")
+	@Size(min = 4, max = 50, message = "Username must be between 5 and 50 characters")
     //@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Username must contain only alphanumeric characters")
 	private String 	commanderName; 
 	@Column	(name = "COMMANDER_PASSWORD")	private String 	commanderPassword;
 	@Column	(name = "COMMANDER_PRESTIGE")	private Integer commanderPrestige;
 	@Column (name = "COMMANDER_XP")			private Integer commanderXP;
+	@Column (name = "STAMINA")              private Integer stamina;
+	@Column (name = "LAST_STAMINA_UPDATE")  private LocalDateTime commanderLastStaminaUpdate;
 
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -45,6 +49,9 @@ public class UnitCommander {
 	@OneToMany(cascade=CascadeType.ALL)	// these 3 lines should be deleted.
 	@JoinColumn(name = "MODEL_ID")		// This is impossible due to the fact there is no column on UnitCommander to connect to MODEL_ID of upgradesType table. UpgradeType connects to Upgrade. Upgrade Connects to UnitCommander
 	private List<UpgradeType> upgradeTypes;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "commander")
+    private Bag bag;
 
 
   // Constructors
@@ -67,9 +74,12 @@ public class UnitCommander {
 	public String 	getCommanderPassword() 	{ return commanderPassword;	} 
 	public Integer 	getCommanderPrestige() 	{ return commanderPrestige;	}  
 	public Integer	getCommanderXP()		{ return commanderXP;		}
+	public Bag		getBag()				{ return bag; }
+	public Integer  getStamina()            { return stamina; }
 	public List<Unit>    getUnit() 			{ return unit;				}
 	public List<Upgrade> getUpgradeList() {		return upgradeList;	}
 	public List<UpgradeType> getUpgradeTypes(){ return upgradeTypes;	} 
+	public LocalDateTime getLastStaminaUpdate() { return commanderLastStaminaUpdate; }
 
 	public void setCommanderId(Integer commanderId      		)	{ this.commanderId		= commanderId;		} 
 	public void setCommanderName(String  commanderName    		)	{ this.commanderName	= commanderName;	}  
@@ -78,8 +88,17 @@ public class UnitCommander {
 	public void setCommanderXP(	Integer commanderXP		)			{ this.commanderXP 		= commanderXP;		}
 	public void setUnit( List<Unit> unit)							{ this.unit 			= unit; 			}
 	public void setUpgradeList(List<Upgrade> upgradeList) {		this.upgradeList = upgradeList;	}
-	public void setUpgradeTypes(List<UpgradeType> upgradeTypes  )	{ this.upgradeTypes 	= upgradeTypes;		} 
+	public void setUpgradeTypes(List<UpgradeType> upgradeTypes  )	{ this.upgradeTypes 	= upgradeTypes;		}
+	public void setStamina(Integer stamina)                        { this.stamina = stamina; }
+	public void setLastStaminaUpdate(LocalDateTime time)           { this.commanderLastStaminaUpdate = time; }
 	
+	@Override
+    public String toString() {
+        return "UnitCommander [commanderId=" + commanderId + ", commanderName=" + commanderName + ", commanderPassword="
+                + commanderPassword + ", commanderPrestige=" + commanderPrestige + ", commanderXP=" + commanderXP
+                + ", commanderStamina=" + stamina + ", unit=" + unit + ", upgradeList=" + upgradeList
+                + ", upgradeTypes=" + upgradeTypes + ", bag=" + bag + "]";
+    }
 	
 	@Override
 	public int hashCode() {
@@ -105,32 +124,5 @@ public class UnitCommander {
 	
 
 	
-/////////////////
- }///  end class 
-///////////////////
 
-
-/*//>> BS REMOVE TO TEST 
-// Hash & Equals
-	@Override
-	public int hashCode() {
-		return Objects.hash(commanderId, commanderName, commanderPassword, commanderPrestige, commanderXP, unit
-				);//,upgradeTypes //>> BS REMOVE TO TEST
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UnitCommander other = (UnitCommander) obj;
-		return Objects.equals(commanderId, other.commanderId) && Objects.equals(commanderName, other.commanderName)
-				&& Objects.equals(commanderPassword, other.commanderPassword)
-				&& Objects.equals(commanderPrestige, other.commanderPrestige)
-				&& Objects.equals(commanderXP, other.commanderXP) && Objects.equals(unit, other.unit);
-//				&& Objects.equals(upgradeTypes, other.upgradeTypes);//>> BS REMOVE TO TEST
-	}
-	*/
+ }
