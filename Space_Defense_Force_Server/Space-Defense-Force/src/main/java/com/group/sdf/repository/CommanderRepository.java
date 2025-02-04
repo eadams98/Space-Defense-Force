@@ -3,6 +3,9 @@ package com.group.sdf.repository;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import com.group.sdf.entity.UnitCommander;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 
 //public interface CommanderRepository extends CrudRepository<UnitCommander,String>{
@@ -24,5 +27,8 @@ public interface CommanderRepository extends CrudRepository<UnitCommander, Integ
 //	and UT.MODEL_ID = 1001
 //	public String findByCommanderName(String commanderName);
 	Optional<UnitCommander> findByCommanderName(String commanderName);	
+	
+	@Query("SELECT u FROM UnitCommander u WHERE u.stamina < 100")
+    Page<UnitCommander> findUnitsWithNonMaxStamina(Pageable pageable);
   
 }

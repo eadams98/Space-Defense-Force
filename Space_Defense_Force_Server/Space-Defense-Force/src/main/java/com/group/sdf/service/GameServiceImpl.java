@@ -1,5 +1,7 @@
 package com.group.sdf.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -145,6 +147,7 @@ public class GameServiceImpl implements GameService {
 		    throw new Exception("Commander doesn't have enough stamina");
 		
 		commander.setStamina(commander.getStamina() - encounterCost);
+		commander.setLastStaminaUpdate(LocalDateTime.now());
 		try {
 		    playerService.saveCommander(commander);
 		    logger.info("saved commander"); 

@@ -30,6 +30,7 @@ CREATE TABLE unit_commanders (
 	COMMANDER_PRESTIGE INT,
 	COMMANDER_XP INT,
 	STAMINA INT DEFAULT 100,
+    LAST_STAMINA_UPDATE DATETIME DEFAULT NOW(),
 	CONSTRAINT ps_commander_id_pk PRIMARY KEY ( COMMANDER_ID )
 );
 
@@ -137,9 +138,9 @@ CREATE TABLE refresh_token (
 );
 
 
-INSERT INTO unit_commanders VALUES(1,'BillyBob','0853a7ee4ac5da6e84cfeb122d948eac0ba35a9d2df4a3e8e159fed22f56d8be',100, 0, 100); 
-INSERT INTO unit_commanders VALUES(2,'BossMan','password',100, 0, 100);
-INSERT INTO unit_commanders VALUES(3,'Eric','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',100, 0, 199); 
+INSERT INTO unit_commanders VALUES(1,'BillyBob','0853a7ee4ac5da6e84cfeb122d948eac0ba35a9d2df4a3e8e159fed22f56d8be',100, 0, 100, null); 
+INSERT INTO unit_commanders VALUES(2,'BossMan','password',100, 0, 100, null);
+INSERT INTO unit_commanders VALUES(3,'Eric','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',100, 0, 199, null); 
 
 INSERT INTO roles VALUES('1','ROLE_USER');
 INSERT INTO roles VALUES('2','ROLE_SUPER_USER');
