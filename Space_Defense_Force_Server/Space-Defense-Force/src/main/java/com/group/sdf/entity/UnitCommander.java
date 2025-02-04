@@ -1,5 +1,6 @@
 package com.group.sdf.entity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects; // Eric: Don't think we need this
 
@@ -33,7 +34,8 @@ public class UnitCommander {
 	@Column	(name = "COMMANDER_PASSWORD")	private String 	commanderPassword;
 	@Column	(name = "COMMANDER_PRESTIGE")	private Integer commanderPrestige;
 	@Column (name = "COMMANDER_XP")			private Integer commanderXP;
-	@Column (name = "STAMINA")              private Integer commanderStamina;
+	@Column (name = "STAMINA")              private Integer stamina;
+	@Column (name = "LAST_STAMINA_UPDATE")  private LocalDateTime commanderLastStaminaUpdate;
 
 	
 	@OneToMany(cascade=CascadeType.ALL)
@@ -73,10 +75,11 @@ public class UnitCommander {
 	public Integer 	getCommanderPrestige() 	{ return commanderPrestige;	}  
 	public Integer	getCommanderXP()		{ return commanderXP;		}
 	public Bag		getBag()				{ return bag; }
-	public Integer  getStamina()            { return commanderStamina; }
+	public Integer  getStamina()            { return stamina; }
 	public List<Unit>    getUnit() 			{ return unit;				}
 	public List<Upgrade> getUpgradeList() {		return upgradeList;	}
 	public List<UpgradeType> getUpgradeTypes(){ return upgradeTypes;	} 
+	public LocalDateTime getLastStaminaUpdate() { return commanderLastStaminaUpdate; }
 
 	public void setCommanderId(Integer commanderId      		)	{ this.commanderId		= commanderId;		} 
 	public void setCommanderName(String  commanderName    		)	{ this.commanderName	= commanderName;	}  
@@ -86,13 +89,14 @@ public class UnitCommander {
 	public void setUnit( List<Unit> unit)							{ this.unit 			= unit; 			}
 	public void setUpgradeList(List<Upgrade> upgradeList) {		this.upgradeList = upgradeList;	}
 	public void setUpgradeTypes(List<UpgradeType> upgradeTypes  )	{ this.upgradeTypes 	= upgradeTypes;		}
-	public void setStamina(Integer stamina)                        { this.commanderStamina = stamina; }
+	public void setStamina(Integer stamina)                        { this.stamina = stamina; }
+	public void setLastStaminaUpdate(LocalDateTime time)           { this.commanderLastStaminaUpdate = time; }
 	
 	@Override
     public String toString() {
         return "UnitCommander [commanderId=" + commanderId + ", commanderName=" + commanderName + ", commanderPassword="
                 + commanderPassword + ", commanderPrestige=" + commanderPrestige + ", commanderXP=" + commanderXP
-                + ", commanderStamina=" + commanderStamina + ", unit=" + unit + ", upgradeList=" + upgradeList
+                + ", commanderStamina=" + stamina + ", unit=" + unit + ", upgradeList=" + upgradeList
                 + ", upgradeTypes=" + upgradeTypes + ", bag=" + bag + "]";
     }
 	
@@ -120,32 +124,5 @@ public class UnitCommander {
 	
 
 	
-/////////////////
- }///  end class 
-///////////////////
 
-
-/*//>> BS REMOVE TO TEST 
-// Hash & Equals
-	@Override
-	public int hashCode() {
-		return Objects.hash(commanderId, commanderName, commanderPassword, commanderPrestige, commanderXP, unit
-				);//,upgradeTypes //>> BS REMOVE TO TEST
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UnitCommander other = (UnitCommander) obj;
-		return Objects.equals(commanderId, other.commanderId) && Objects.equals(commanderName, other.commanderName)
-				&& Objects.equals(commanderPassword, other.commanderPassword)
-				&& Objects.equals(commanderPrestige, other.commanderPrestige)
-				&& Objects.equals(commanderXP, other.commanderXP) && Objects.equals(unit, other.unit);
-//				&& Objects.equals(upgradeTypes, other.upgradeTypes);//>> BS REMOVE TO TEST
-	}
-	*/
+ }
