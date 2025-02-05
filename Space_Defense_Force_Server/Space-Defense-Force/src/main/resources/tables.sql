@@ -152,10 +152,6 @@ INSERT INTO user_roles VALUES('1','3');
 INSERT INTO units VALUES(1,'Boom Squad',100, 10, 20, 10, 1);
 INSERT INTO units VALUES(2,'Invincible',10000, 10000, 10000, 10000, NULL);
 
-
-INSERT INTO bag VALUES(1, 3);
-INSERT INTO bag_units VALUES(1,1);
-
 INSERT INTO upgrade_types VALUES(1001,'Zappy Zap',     100,   10, "long");
 INSERT INTO upgrade_types VALUES(1002,'BoomStick9000', 150,   20, "long");
 INSERT INTO upgrade_types VALUES(1003,'Grinder',       350,   25, "med");
@@ -164,6 +160,10 @@ INSERT INTO upgrades VALUES(10101,1001,1);
 INSERT INTO upgrades VALUES(10102,1002,1);
 INSERT INTO upgrades VALUES(10103,1003,2);
 
+INSERT INTO bag VALUES(1, 3);
+INSERT INTO bag_units VALUES(1,1);
+INSERT INTO bag_upgrades VALUES(1,10101);
+INSERT INTO bag_upgrades VALUES(1,10103);
 
 INSERT INTO encounters VALUES(1,'Blerg',100, 20, 50, 5, 5, 0, 10);
 INSERT INTO encounters VALUES(2, "Fodder", 1, 1, 1, 0, 1, 0, 0);

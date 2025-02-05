@@ -29,6 +29,10 @@ public class Bag {
 
     @OneToMany(mappedBy = "bag", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BagUpgrade> bagUpgrades = new ArrayList<>();
+    
+    public Integer getBagId() {
+        return bagId;
+    }
 
 	public UnitCommander getCommander() {
 		return commander;
