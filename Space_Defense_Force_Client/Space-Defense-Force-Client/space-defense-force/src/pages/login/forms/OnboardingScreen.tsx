@@ -1,8 +1,8 @@
 import { Alert, Button, Container, Grid, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import LoadingEllipse from "./utility/loading";
+import LoadingEllipse from "../../../utility/loading";
 import { Rocket, RocketLaunch } from "@mui/icons-material";
-import { BoardBtnState, OnboardingScreenProps } from "./types/LandingPageExports";
+import { BoardBtnState, OnboardingScreenProps } from "../../../types/LandingPageExports";
 import axios, { AxiosError } from "axios";
 
 type DataResponse = {

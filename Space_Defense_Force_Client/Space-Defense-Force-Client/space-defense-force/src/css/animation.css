@@ -1,0 +1,66 @@
+.icon {
+  font-size: 6rem;
+  position: absolute;
+  left: -100px; /* Start off-screen to the left */
+  opacity: 1;
+  transition: transform 2.5s ease-in-out, opacity 1s ease-in-out, font-size 2.5s ease-in-out;
+  z-index: 10; /* Higher z-index to ensure it's in front of meteors */
+}
+
+.stage-1 {
+  transform: translateX(calc(50vw - 3rem)) translateY(0); /* Move to the center horizontally and center vertically */
+  font-size: 6rem;          /* Initial size */
+  opacity: 1;
+}
+
+.stage-2 {
+  transform: translateX(calc(50vw - 3rem)) translateY(-100px); /* Move up while staying centered */
+  font-size: 4rem;               /* Shrink */
+}
+
+.stage-3 {
+  transform: translateX(calc(50vw - 3rem)) translateY(150px); /* Move down while staying centered */
+  font-size: 20rem;             /* Enlarge */
+  opacity: 1;
+}
+
+.stage-4 {
+  transform: translateX(calc(50vw - 3rem)) translateY(0); /* Move back to center horizontally and vertically */
+  font-size: 6rem;          /* Same size as stage-1 */
+  opacity: 1;
+}
+
+.stage-5 {
+  transform: translateX(110vw) translateY(0); /* Move off the screen to the right */
+  font-size: 6rem;          /* Same size as stage-1 */
+  opacity: 1;
+}
+
+.meteor-icon {
+  font-size: 4rem;
+  position: absolute;
+  left: 100vw;
+  opacity: 1;
+  transition: transform 3s ease-in-out, opacity 1s ease-in-out, font-size 2s ease-in-out;
+  z-index: 5; /* Lower z-index to ensure it’s behind the rocket */
+}
+
+.meteor-1 {
+  transform: translateX(-110vw);
+  opacity: 1;
+}
+
+.meteor-icon-2 {
+  font-size: 2rem;
+  position: absolute;
+  left: 100vw;
+  transform: translateY(-50px);
+  opacity: 1;
+  transition: transform 3s ease-in-out, opacity 1s ease-in-out, font-size 2s ease-in-out;
+  z-index: 5; /* Lower z-index to ensure it’s behind the rocket */
+}
+
+.meteor-2 {
+  transform: translateX(-110vw);
+  opacity: 1;
+}
