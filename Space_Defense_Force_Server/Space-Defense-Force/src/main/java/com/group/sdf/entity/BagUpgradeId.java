@@ -9,6 +9,10 @@ public class BagUpgradeId implements Serializable {
     private Integer bagId;
     private Integer upgradeId;
     
+    public BagUpgradeId() {
+        
+    }
+    
     public BagUpgradeId(Integer bagId, Integer upgradeId) {
         this.bagId = bagId;
         this.upgradeId = upgradeId;

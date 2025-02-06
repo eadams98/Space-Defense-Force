@@ -22,6 +22,10 @@ public class UpgradeDTO {
 	
 	
 	// Constructors
+	public UpgradeDTO() {
+	    
+	}
+	
 	public UpgradeDTO( String upgradeId, Integer commanderId, UpgradeTypeDTO upgradeTypeDTO) {
 		this.upgradeId = upgradeId;
 		//this.modelId = modelId;
