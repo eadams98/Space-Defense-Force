@@ -55,7 +55,11 @@ public class UnitCommander {
 
 
   // Constructors
-    public UnitCommander(){} 
+    public UnitCommander(){}
+    
+    public UnitCommander(Bag bag){
+        this.bag = bag;
+    }
     
   //>> quick mapping of DTO to Entity
 	public UnitCommander( Integer commanderId, String commanderName, String commanderPassword, Integer commanderPrestige, Integer commanderXP ) 

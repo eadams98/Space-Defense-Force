@@ -14,7 +14,7 @@ public class UpgradeDTO {
 	
 	//Instance Variables
 	@NotNull
-	private String upgradeId;
+	private Integer upgradeId;
 	//@NotNull
 	//private Integer modelId;
 	private Integer commanderId;
@@ -26,7 +26,7 @@ public class UpgradeDTO {
 	    
 	}
 	
-	public UpgradeDTO( String upgradeId, Integer commanderId, UpgradeTypeDTO upgradeTypeDTO) {
+	public UpgradeDTO( Integer upgradeId, Integer commanderId, UpgradeTypeDTO upgradeTypeDTO) {
 		this.upgradeId = upgradeId;
 		//this.modelId = modelId;
 		this.commanderId = commanderId;
@@ -40,14 +40,14 @@ public class UpgradeDTO {
 	}
 	
 	// Getters
-	public String getUpgradeId()			{ return upgradeId; }
+	public Integer getUpgradeId()			{ return upgradeId; }
 	//public Integer getModelId()				{ return modelId; }
 	public Integer getCommanderId()			{ return commanderId; }
 	public UpgradeTypeDTO getUpgradeTypeDTO()		{ return upgradeTypeDTO; }
 
 	
 	// Setters
-	public void setUpgradeId(String upgradeId)						{ this.upgradeId = upgradeId; }
+	public void setUpgradeId(Integer upgradeId)						{ this.upgradeId = upgradeId; }
 	//public void getModelId(Integer modelId)						{ this.modelId = modelId; }
 	public void setCommanderId(Integer commanderId)					{ this.commanderId = commanderId; }
 	public void setUpgradeTypeDTO(UpgradeTypeDTO upgradeTypeDTO)	{ this.upgradeTypeDTO = upgradeTypeDTO; }

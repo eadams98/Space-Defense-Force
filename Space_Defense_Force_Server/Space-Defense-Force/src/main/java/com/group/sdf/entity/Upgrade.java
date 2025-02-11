@@ -33,7 +33,7 @@ public class Upgrade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="UPGRADE_ID")
-	private String upgradeId;
+	private Integer upgradeId;
 	//@Column(name="MODEL_ID")
 	//private Integer modelId;
 	@Column(name="COMMANDER_ID")
@@ -48,7 +48,7 @@ public class Upgrade {
 	// Constructors
 	public Upgrade(){}//BS GOOD TO HAVE AS DEFAULT CONSTRUCTOR IN EVENT CONSTRUCTORS BELOW DO NOT MATCH INSTANCE VARIABLE SETUP
 	
-	public Upgrade( String upgradeId, Integer commanderId, UpgradeType upgradeType) {
+	public Upgrade( Integer upgradeId, Integer commanderId, UpgradeType upgradeType) {
 		this.upgradeId = upgradeId;
 		this.commanderId = commanderId;
 		this.upgradeType = upgradeType;
@@ -68,17 +68,17 @@ public class Upgrade {
 
 	
 	// Getters
-	public String getUpgradeId()			{ return upgradeId; }
+	public Integer getUpgradeId()			{ return upgradeId; }
 	//public Integer getModelId()				{ return modelId; }
 	public Integer getCommanderId()			{ return commanderId; }
 	public UpgradeType getUpgradeType()		{ return upgradeType; } // Eric
 
 	
 	// Setters
-	public void setUpgradeId(String upgradeId)			{ this.upgradeId = upgradeId; }
+	public void setUpgradeId(Integer upgradeId)			{ this.upgradeId = upgradeId; }
 	//public void setModelId(Integer modelId)				{ this.modelId = modelId; }
 	public void setCommanderId(Integer commanderId)		{ this.commanderId = commanderId; }
-	public void setUpgradeType(UpgradeType upgradeType) { this.upgradeId = upgradeId; }// Eric
+	public void setUpgradeType(UpgradeType upgradeType) { this.upgradeType = upgradeType; }// Eric
 
 	@Override
 	public int hashCode() {

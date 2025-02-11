@@ -45,6 +45,10 @@ public class Bag {
 	public List<BagUpgrade> getBagUpgrades() {
 		return bagUpgrades;
 	}
+	
+	public void setBagId(Integer bagId) {
+	    this.bagId = bagId;
+	}
 
 	public void setCommander(UnitCommander commander) {
 		this.commander = commander;

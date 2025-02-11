@@ -3,6 +3,7 @@ package com.group.sdf.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,14 +28,10 @@ import com.group.sdf.utility.JwtUtils;
 @Service
 public class BagServiceImpl implements BagService {
     
+    private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+    
     @Autowired
     JwtUtils jwtUtil;
-    
-    @Autowired
-    UnitRepository unitRepo;
-    
-    @Autowired
-    UpgradeRepository upgradeRepo;
     
     @Autowired
     BagRepository bagRepo;
@@ -54,10 +51,12 @@ public class BagServiceImpl implements BagService {
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         
         Page<BagUnit> unitPage = bagRepo.getUnitsForCommander(commander.getBag().getBagId(), pageable);
-        //if (unitPage.getNumberOfElements() == 0)
-        //    throw new Exception("faulure, no results in page");
-        
+
         List<UnitDTO> unitsInBag = new ArrayList<>();
+        if (unitPage == null || unitPage.getNumberOfElements() == 0)
+            return unitsInBag;
+        
+
         unitPage.forEach(bu -> {
             Unit u = bu.getUnit();
             
@@ -86,12 +85,14 @@ public class BagServiceImpl implements BagService {
         pageNo -= offsetZeroIndex;
         Pageable pageable = PageRequest.of(pageNo, pageSize);
         
-        Page<BagUpgrade> unitPage = bagRepo.getUpgradesForCommander(commander.getBag().getBagId(), pageable);
-        //if (unitPage.getNumberOfElements() == 0)
-        //    throw new Exception("faulure, no results in page");
-        
+        Page<BagUpgrade> upgradePage = bagRepo.getUpgradesForCommander(commander.getBag().getBagId(), pageable);
+
         List<UpgradeDTO> upgradesInBag = new ArrayList<>();
-        unitPage.forEach(bu -> {
+        if (upgradePage == null || upgradePage.getNumberOfElements() == 0)
+            return upgradesInBag;
+        
+
+        upgradePage.forEach(bu -> {
             Upgrade u = bu.getUpgrade();
             
             UpgradeDTO uDTO = new UpgradeDTO();
