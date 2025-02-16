@@ -29,7 +29,7 @@ public class ComputerAPI {
 	
 	
 	@GetMapping(value="/generate-encounters/{commanderId}")
-	public ResponseEntity<ArrayList<EncounterDTO>> generateEncounters(@PathVariable Integer commanderId) {
+	public ResponseEntity<ArrayList<EncounterDTO>> generateEncounters(@PathVariable Integer commanderId) throws Exception {
 		/*
 		 * Probably needs to throw exception, but we have to talk about what specificaly
 		 * 

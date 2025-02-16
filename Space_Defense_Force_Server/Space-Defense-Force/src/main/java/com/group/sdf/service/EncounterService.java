@@ -10,7 +10,7 @@ import com.group.sdf.entity.Encounter;
 public interface EncounterService {
 	
 	// Have to come back and add throws to this interfaces methods
-	ArrayList<EncounterDTO> generateEncounters(Integer commanderId);
+	ArrayList<EncounterDTO> generateEncounters(Integer commanderId) throws Exception;
 	
 	// remove
 	UnitCommanderDTO updateCommander(Integer commanderId, Integer encounterId);

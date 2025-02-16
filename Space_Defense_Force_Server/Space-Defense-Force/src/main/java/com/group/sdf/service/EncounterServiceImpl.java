@@ -33,7 +33,7 @@ public class EncounterServiceImpl implements EncounterService {
 	private EncounterRepository encounterRepository;
 	
 	@Override
-	public ArrayList<EncounterDTO> generateEncounters(Integer commanderId) { 
+	public ArrayList<EncounterDTO> generateEncounters(Integer commanderId) throws Exception {
 		/*
 		 * Loops through current commander's units and identifies the strongest
 		 * Uses the strongest attribute as a query parameter to get list of suitable encounters
@@ -44,12 +44,12 @@ public class EncounterServiceImpl implements EncounterService {
 		 */
 		
 		Optional<UnitCommander> optionalCommander = commanderRepository.findById(commanderId);
-		UnitCommander commander = optionalCommander.orElseThrow(() -> null); // need to add specific exception
+		UnitCommander commander = optionalCommander.orElseThrow(() -> new Exception("unable to find a commander with the given id")); // need to add specific exception
 		
 		List<Unit> units = commander.getUnit();
 		Integer highestDmg = 0;
 		
-		if (!units.isEmpty()) { // currently checks to see if they have any units (should have at least 1 at all times, but until implemented this is here)
+		if (units != null && !units.isEmpty()) { // currently checks to see if they have any units (should have at least 1 at all times, but until implemented this is here)
 			for (Unit unit : units) {
 				Integer currentUnitDmg = unit.getUnitDamage();
 				if (currentUnitDmg > highestDmg)
