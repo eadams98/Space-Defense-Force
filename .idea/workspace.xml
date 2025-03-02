@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ea7cb921-37b0-46ee-bce6-f326ad023673" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Space_Defense_Force_Server/Space-Defense-Force/src/main/java/com/group/sdf/utility/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space_Defense_Force_Client/Space-Defense-Force-Client/space-defense-force/src/pages/home/bag/Bag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Space_Defense_Force_Client/Space-Defense-Force-Client/space-defense-force/src/pages/home/bag/Bag.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space_Defense_Force_Client/Space-Defense-Force-Client/space-defense-force/src/pages/login/forms/LaunchScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/Space_Defense_Force_Client/Space-Defense-Force-Client/space-defense-force/src/pages/login/forms/LaunchScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Space_Defense_Force_Server/Space-Defense-Force/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Space_Defense_Force_Server/Space-Defense-Force/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="spring-beans.schema" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 3
+}]]></component>
+  <component name="ProjectId" id="2smNmOowKiMzz4vrzExoLk0MqIv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.SpaceDefenseForceApplication.executor": "Run",
+    "JUnit.BagServiceImplTest (1).executor": "Run",
+    "JUnit.BagServiceImplTest.executor": "Run",
+    "JUnit.BagServiceImplTest.getBagUnitsCommanderNotFound (1).executor": "Run",
+    "JUnit.BagServiceImplTest.getBagUnitsCommanderNotFound.executor": "Run",
+    "JUnit.BagServiceImplTest.getBagUnitsNonEmptyBagUnits.executor": "Run",
+    "JUnit.BagServiceImplTest.getBagUpgradesNonEmptyBagUnits.executor": "Run",
+    "JUnit.EncounterServiceImplTest.executor": "Run",
+    "JUnit.EncounterServiceImplTest.generateEncountersButCommanderNotFound.executor": "Run",
+    "JUnit.EncounterServiceImplTest.generateEncountersWithResults.executor": "Run",
+    "JUnit.EncounterServiceImplTest.generateEncountersWithoutResults.executor": "Run",
+    "JUnit.EncounterServiceImplTest.getEncounterPageWithResults.executor": "Run",
+    "JUnit.EncounterServiceImplTest.getEncounterPageWithoutResults.executor": "Run",
+    "JUnit.EncounterServiceImplTest.getNumberOfEncounterForPagesOfSize.executor": "Run",
+    "Maven.Space-Defense-Force [clean].executor": "Run",
+    "Maven.Space-Defense-Force [install].executor": "Run",
+    "Maven.Space-Defense-Force [package].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.SpaceDefenseForceApplication.executor": "Run",
+    "git-widget-placeholder": "main-api-integrations",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/repoleved/Developer/GIT Clones/Space_Defense_Force/Space-Defense-Force",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "configurable.group.build",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="JUnit.EncounterServiceImplTest">
+    <configuration name="BagServiceImplTest.getBagUnitsCommanderNotFound" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.BagServiceImplTest" />
+      <option name="METHOD_NAME" value="getBagUnitsCommanderNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea -Dlog4j.configurationFile=src/test/resources/log4j2-test.yml " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BagServiceImplTest.getBagUnitsCommanderNotFound" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.BagServiceImplTest" />
+      <option name="METHOD_NAME" value="getBagUnitsCommanderNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea-Dlog4j.configurationFile=src/test/resources/log4j2-test.yml " />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncounterServiceImplTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.EncounterServiceImplTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncounterServiceImplTest.generateEncountersButCommanderNotFound" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.EncounterServiceImplTest" />
+      <option name="METHOD_NAME" value="generateEncountersButCommanderNotFound" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncounterServiceImplTest.getEncounterPageWithResults" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.EncounterServiceImplTest" />
+      <option name="METHOD_NAME" value="getEncounterPageWithResults" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncounterServiceImplTest.getEncounterPageWithoutResults" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.EncounterServiceImplTest" />
+      <option name="METHOD_NAME" value="getEncounterPageWithoutResults" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="EncounterServiceImplTest.getNumberOfEncounterForPagesOfSize" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Space-Defense-Force" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.group.sdf.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.group.sdf.service" />
+      <option name="MAIN_CLASS_NAME" value="com.group.sdf.service.EncounterServiceImplTest" />
+      <option name="METHOD_NAME" value="getNumberOfEncounterForPagesOfSize" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpaceDefenseForceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="Space-Defense-Force" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.group.sdf.SpaceDefenseForceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EncounterServiceImplTest" />
+        <item itemvalue="JUnit.EncounterServiceImplTest.getNumberOfEncounterForPagesOfSize" />
+        <item itemvalue="JUnit.EncounterServiceImplTest.getEncounterPageWithoutResults" />
+        <item itemvalue="JUnit.EncounterServiceImplTest.getEncounterPageWithResults" />
+        <item itemvalue="JUnit.EncounterServiceImplTest.generateEncountersButCommanderNotFound" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ea7cb921-37b0-46ee-bce6-f326ad023673" name="Changes" comment="" />
+      <created>1739056949092</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739056949092</updated>
+      <workItem from="1739056950503" duration="27379000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/Space_Defense_Force_Server/Space-Defense-Force/src/main/java/com/group/sdf/service/EncounterServiceImpl.java</url>
+          <line>35</line>
+          <properties class="com.group.sdf.service.EncounterServiceImpl" method="generateEncounters">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

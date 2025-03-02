@@ -6,6 +6,7 @@ import { Rocket, RocketLaunch } from "@mui/icons-material";
 import { useNavigate } from 'react-router-dom';
 
 import axios from "axios";
+import api, { setAccessToken } from "../../../utility/api";
 
 export default function LaunchScreen({
   formState: formToggleState,
@@ -57,7 +58,8 @@ export default function LaunchScreen({
     const fetchData = async () => {
       let isSuccess = false;
       try {
-        const axiosPromise = axios.post<any>("http://localhost:8765/auth/signin", formState);
+        const axiosPromise = api.post<any>("/auth/signin", formState)
+        //const axiosPromise = axios.post<any>("http://localhost:8765/auth/signin", formState);
         const delayPromise = delay(5000); // 5 seconds delay
 
         let response: any;
@@ -78,7 +80,7 @@ export default function LaunchScreen({
             errorMessage: "",
             successMessge: "success"
           })
-          isSuccess = true;
+          //isSuccess = true;
         } else {
           setAxiosResponse({
             errorMessage: response.response.data.errorMessage,

@@ -1,4 +1,5 @@
 import { Box, Card, Divider, ImageList, ImageListItem, Modal, Pagination, Paper, Tooltip, Typography, styled } from "@mui/material";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -78,6 +79,17 @@ export default function Bag() {
       ...pagination,
       totalPages: itemData.length/9
     })
+
+    const fetchData = async () => {
+      try {
+        const axiosPromise = axios.get<any>("http://localhost:8765/bag/upgrades/1/9");
+        const response = await axiosPromise
+        console.log(response)
+      } catch(ex) {
+        console.log("ERROR in bag retrieval " + ex)
+      }
+    }
+    fetchData()
   }, [])
 
   return(
