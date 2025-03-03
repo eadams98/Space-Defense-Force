@@ -80,7 +80,7 @@ export default function LaunchScreen({
             errorMessage: "",
             successMessge: "success"
           })
-          //isSuccess = true;
+          isSuccess = true;
         } else {
           setAxiosResponse({
             errorMessage: response.response.data.errorMessage,

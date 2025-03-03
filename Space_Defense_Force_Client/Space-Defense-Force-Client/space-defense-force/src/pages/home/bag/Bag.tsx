@@ -1,5 +1,6 @@
 import { Box, Card, Divider, ImageList, ImageListItem, Modal, Pagination, Paper, Tooltip, Typography, styled } from "@mui/material";
 import axios from "axios";
+import api, { setAccessToken } from "../../../utility/api";
 import { useEffect, useState } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -82,9 +83,17 @@ export default function Bag() {
 
     const fetchData = async () => {
       try {
-        const axiosPromise = axios.get<any>("http://localhost:8765/bag/upgrades/1/9");
+        const axiosPromise = api.get<any>("/bag/units/1/9") // upgrades & units
+        //const axiosPromise = axios.get<any>("http://localhost:8765/bag/upgrades/1/9");
         const response = await axiosPromise
         console.log(response)
+
+        let items:any = []
+        response.data.forEach((obj: {unitId: number; unitName: string; unitHealth: number; unitShield: number; unitDamage: number; unitXp: number; picture: string }) => {
+          let item = { name: obj.unitName, health: obj.unitHealth, attack: obj.unitDamage, img: (obj?.picture ? obj.picture : 'https://th.bing.com/th/id/R.42e5e32ec95618f61c661497b0d7eb92?rik=yOxR3LVHD6%2fWfw&riu=http%3a%2f%2fclipart-library.com%2fimages%2fkcKboL5cj.jpg&ehk=Gn4N06qOPdRI2A%2bXgDtYCKxb%2fsm1e8BCYjKWnBwQHtA%3d&risl=&pid=ImgRaw&r=0') }
+          items.push(item);
+        })
+        setItemData(items)
       } catch(ex) {
         console.log("ERROR in bag retrieval " + ex)
       }

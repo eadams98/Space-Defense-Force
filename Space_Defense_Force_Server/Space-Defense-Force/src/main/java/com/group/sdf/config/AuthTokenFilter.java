@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -62,11 +63,12 @@ public class AuthTokenFilter extends OncePerRequestFilter{
 			return;
 		} catch (ExpiredJwtException e) {
 			System.out.println("JWT Token has expired");
+			//response.setStatus(HttpStatus.UNAUTHORIZED.value());
 			handlerExceptionResolver.resolveException(request, response, null, new JwtTokenValidationException("Expired JWT token"));
 			return;
 			//throw new RuntimeException(new JwtTokenValidationException("Expired JWT token")); // throw as runtime exception
 		} catch (Exception e) {
-			System.out.println("general exception JWT Token");
+			//System.out.println("general exception JWT Token");
 			handlerExceptionResolver.resolveException(request, response, null, e);
 			return;
 		}

@@ -2,21 +2,19 @@ package com.group.sdf.api;
 
 import java.util.function.Function;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletResponseWrapper;
 import javax.validation.Valid;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.group.sdf.dto.CreateUserDTO;
 import com.group.sdf.dto.JwtResponse;
@@ -33,10 +31,14 @@ import io.jsonwebtoken.Claims;
 @RequestMapping(value="/auth")
 @Validated // forgot what this does. Something to do with DTO confirmation I'm sure. // yes is for accessing validation methods on request body , and possibly path variables
 public class AuthController {
+
+	private final org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
 	private UserService userService;
-	
+
+	@Autowired
+	HttpServletResponse servResponse;
 	
 	@Autowired
 	private Environment environment;
@@ -59,11 +61,27 @@ public class AuthController {
 	@PostMapping(value="/signin")
 	public ResponseEntity<JwtResponse> authenticateUser(@RequestBody LoginDTO loginRequest) throws Exception {
 		JwtResponse response = userService.authenticateUser(loginRequest);
+
+		//HttpServletResponse responseWithCookies = new HttpServletResponseWrapper(response);
+		//servResponse.setStatus(HttpStatus.OK.value());
+		//servResponse.getWriter().write(response.toString());
+		//servResponse.flushBuffer();
+
+		Cookie refreshCookie = new Cookie("refreshToken", response.getRefreshToken());
+		refreshCookie.setHttpOnly(true);
+		//refreshCookie.setSecure(true); // prod https
+		refreshCookie.setPath("/auth/refresh");
+		servResponse.addCookie(refreshCookie);
+
+		//return new ResponseEntity<>(response, HttpStatus.OK);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 	
-	@PostMapping("/refresh-token")
-	public ResponseEntity<String> refreshToken(@RequestBody LoginDTO request) {
+	@PostMapping("/refresh")
+	//public ResponseEntity<String> refreshToken(@RequestBody LoginDTO request) {
+	public ResponseEntity<String> refreshToken(@RequestBody LoginDTO request, @CookieValue(value = "refreshToken", required = false) String refreshToken) {
+		logger.info("refreshToken = " + refreshToken);
+		request.setRefreshToken(refreshToken);
 		String token = userService.refreshUserToken(request);
 		return new ResponseEntity<>(token, HttpStatus.OK);
 		

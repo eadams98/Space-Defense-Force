@@ -24,7 +24,7 @@ public class JwtUtils {
 	
 	private final static int MS_TO_SECOND = 1000;
     private final static int SECOND_TO_MIN = 60;
-    private final static int TEN = 10;
+    private final static int TEN = 1;
 	//@Value("{app.jwtExpirationMs}")
 	private int jwtExpirationMs = MS_TO_SECOND * SECOND_TO_MIN * TEN; // 10 min
 	

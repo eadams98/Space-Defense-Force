@@ -24,4 +24,13 @@ public class ErrorInfo {
 	}
 	private Integer errorCode;
 	private LocalDateTime timestamp;
+
+	@Override
+	public String toString() {
+		return "ErrorInfo{" +
+				"errorMessage='" + errorMessage + '\'' +
+				", errorCode=" + errorCode +
+				", timestamp=" + timestamp +
+				'}';
+	}
 }

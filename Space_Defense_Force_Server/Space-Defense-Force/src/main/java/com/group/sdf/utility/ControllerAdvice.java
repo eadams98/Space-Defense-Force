@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import com.group.sdf.exceptions.JwtTokenValidationException;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -25,9 +26,23 @@ public class ControllerAdvice {
 	
 	@Autowired
 	Environment env; //env.getProperty(ex.getMessage()
-	
-	@ExceptionHandler
-    public ResponseEntity<ErrorInfo> handleAccessDeniedException(ExpiredJwtException ex, HttpServletRequest request) {
+
+	@ExceptionHandler(value = JwtTokenValidationException.class)
+	public ResponseEntity<ErrorInfo> handleJwtValidationException(JwtTokenValidationException ex) {
+		logger.error("handle access denied exception - jwt validation exception");
+		logger.error(ex.getMessage());
+		ErrorInfo error = new ErrorInfo();
+		error.setErrorMessage(ex.getMessage());
+		error.setErrorCode(HttpStatus.UNAUTHORIZED.value());
+		error.setTimestamp(LocalDateTime.now());
+		logger.error(error.toString());
+		return new ResponseEntity<ErrorInfo>(error, HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(value = ExpiredJwtException.class)
+    public ResponseEntity<ErrorInfo> handleAccessDeniedException(ExpiredJwtException ex) {
+		logger.error("handle access denied exception");
+		logger.error(ex.getMessage());
 		ErrorInfo error = new ErrorInfo();
 		error.setErrorMessage(ex.getMessage());
 		error.setErrorCode(HttpStatus.UNAUTHORIZED.value());

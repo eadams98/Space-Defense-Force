@@ -2,6 +2,7 @@ import { BusinessCenter, Person3, Public, ShoppingCart } from "@mui/icons-materi
 import { AppBar, BottomNavigation, BottomNavigationAction, Button, Container, IconButton, MenuItem, Toolbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react"
 import { useNavigate, Outlet} from 'react-router-dom';
+import { logoutUser } from "../../utility/api";
 
 import '../../css/Homepage.css'
 
@@ -21,7 +22,8 @@ export default function HomePage() {
   })
 
   const goToLogin = () => {
-    navigate("/")
+    //navigate("/")
+    logoutUser()
   }
 
   const goToBag = () => {

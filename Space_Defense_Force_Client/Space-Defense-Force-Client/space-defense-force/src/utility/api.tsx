@@ -31,13 +31,14 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    if ((error.response?.status === 401 || error.response?.status === 500) && !originalRequest._retry) {
+      console.log(error.response)
 
       try {
         // Request new access token
         const {data} = await axios.post(`${API_BASE_URL}/auth/refresh`, {},{withCredentials: true})
 
-        setAccessToken(data.accessToken);
+        setAccessToken(data);
 
         //Retry the original request
         originalRequest.headers.Authorization = `Bearer ${data.accessToken}`;
@@ -53,9 +54,9 @@ api.interceptors.response.use(
 );
 
 // Function to log out user
-const logoutUser = () => {
+export const logoutUser = () => {
   setAccessToken(null);
-  window.location.href = "/login"; // back to whence you came. You shall not pass
+  window.location.href = "/"; // back to whence you came. You shall not pass
 };
 
 export default api;
